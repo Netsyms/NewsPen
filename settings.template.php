@@ -35,6 +35,9 @@ define("PORTAL_KEY", "123");
 // For supported values, see http://php.net/manual/en/timezones.php
 define("TIMEZONE", "America/Denver");
 
+define("DATETIME_FORMAT", "M j Y g:i A"); // 12 hour time
+#define("DATETIME_FORMAT", "M j Y G:i"); // 24 hour time
+
 // Base URL for site links.
 define('URL', 'http://localhost/newspen');
 

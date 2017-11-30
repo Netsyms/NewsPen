@@ -3,7 +3,6 @@
 /**
  * Make things happen when buttons are pressed and forms submitted.
  */
-
 require_once __DIR__ . "/required.php";
 
 if ($VARS['action'] !== "signout") {
@@ -27,6 +26,52 @@ function returnToSender($msg, $arg = "") {
 }
 
 switch ($VARS['action']) {
+    case "editpub":
+        $insert = true;
+        if (is_empty($VARS['pubid'])) {
+            $insert = true;
+        } else {
+            if ($database->has('publications', ['pubid' => $VARS['pubid']])) {
+                $insert = false;
+            } else {
+                returnToSender("invalid_pubid");
+            }
+        }
+        if (is_empty($VARS['name'])) {
+            returnToSender('invalid_parameters');
+        }
+        if (!is_numeric($VARS['columns'])) {
+            returnToSender('invalid_parameters');
+        }
+        if (!$database->has('pub_styles', ["styleid" => $VARS['style']])) {
+            returnToSender('invalid_parameters');
+        }
+        if (!$database->has('pub_permissions', ["permid" => $VARS['perm']])) {
+            returnToSender('invalid_parameters');
+        }
+
+        $data = [
+            'pubname' => $VARS['name'],
+            'pubdate' => date("Y-m-d H:i:s"),
+            'styleid' => $VARS['style'],
+            'columns' => $VARS['columns'],
+            'permid' => $VARS['perm']
+        ];
+
+        if ($insert) {
+            $data['uid'] = $_SESSION['uid'];
+            $database->insert('publications', $data);
+        } else {
+            $database->update('publications', $data, ['pubid' => $VARS['pubid']]);
+        }
+        
+        returnToSender("pub_saved");
+    case "deletepub":
+        if ($database->has('publications', ['pubid' => $VARS['pubid']])) {
+            $database->delete('publications', ['pubid' => $VARS['pubid']]);
+            returnToSender("pub_deleted");
+        }
+        returnToSender("invalid_parameters");
     case "signout":
         session_destroy();
         header('Location: index.php');

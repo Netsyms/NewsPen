@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../required.php';
+require_once __DIR__ . '/userinfo.php';
 
 dieifnotloggedin();
 
@@ -69,8 +70,9 @@ $pubs = $database->select('publications', [
     'stylename',
     'columns',
     'permname',
-    'permid'
+    'publications.permid'
         ], $where);
+
 
 
 $out['status'] = "OK";
@@ -88,6 +90,7 @@ $usercache = [];
 for ($i = 0; $i < count($pubs); $i++) {
     $pubs[$i]["editbtn"] = '<a class="btn btn-blue btn-xs" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '"><i class="fa fa-pencil-square-o"></i> ' . lang("edit", false) . '</a>';
     $pubs[$i]["clonebtn"] = '<a class="btn btn-green btn-xs" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '&clone=1"><i class="fa fa-clone"></i> ' . lang("clone", false) . '</a>';
+    $pubs[$i]["pubdate"] = date(DATETIME_FORMAT, strtotime($pubs[$i]["pubdate"]));
     if (is_null($pubs[$i]['uid'])) {
         $pubs[$i]["username"] = "";
     } else {

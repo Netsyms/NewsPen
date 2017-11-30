@@ -22,6 +22,24 @@ define("PAGES", [
             "static/js/editpub.js"
         ],
     ],
+    "content" => [
+        "title" => "content",
+        "navbar" => true,
+        "icon" => "paragraph",
+    ],
+    "maillist" => [
+        "title" => "mailing lists",
+        "navbar" => true,
+        "icon" => "envelope",
+        "styles" => [
+            "static/css/datatables.min.css",
+            "static/css/tables.css"
+        ],
+        "scripts" => [
+            "static/js/datatables.min.js",
+            "static/js/maillist.js"
+        ],
+    ],
     "404" => [
         "title" => "404 error"
     ]

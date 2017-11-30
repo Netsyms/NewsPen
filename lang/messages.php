@@ -12,5 +12,17 @@ define("MESSAGES", [
     "404_error" => [
         "string" => "page not found",
         "type" => "info"
-    ]
+    ],
+    "pub_saved" => [
+        "string" => "publication saved",
+        "type" => "success"
+    ],
+    "pub_deleted" => [
+        "string" => "publication deleted",
+        "type" => "success"
+    ],
+    "invalid_pubid" => [
+        "string" => "invalid pubid",
+        "type" => "danger"
+    ],
 ]);
