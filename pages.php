@@ -26,6 +26,14 @@ define("PAGES", [
         "title" => "content",
         "navbar" => true,
         "icon" => "paragraph",
+        "styles" => [
+            "static/css/summernote.css",
+            "static/css/content.css",
+        ],
+        "scripts" => [
+            "static/js/summernote.min.js",
+            "static/js/content.js"
+        ]
     ],
     "maillist" => [
         "title" => "mailing lists",

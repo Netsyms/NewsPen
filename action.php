@@ -64,7 +64,7 @@ switch ($VARS['action']) {
         } else {
             $database->update('publications', $data, ['pubid' => $VARS['pubid']]);
         }
-        
+
         returnToSender("pub_saved");
     case "deletepub":
         if ($database->has('publications', ['pubid' => $VARS['pubid']])) {
@@ -72,6 +72,27 @@ switch ($VARS['action']) {
             returnToSender("pub_deleted");
         }
         returnToSender("invalid_parameters");
+    case "savetile":
+        header("Content-Type: application/json");
+        if (!$database->has('publications', ['pubid' => $VARS['pubid']])) {
+            die(json_encode(["status" => "ERROR", "msg" => lang("invalid pubid", false)]));
+        }
+
+        $data = [
+            "pubid" => $VARS['pubid'],
+            "page" => $VARS['page'],
+            "styleid" => $VARS['styleid'],
+            "content" => $VARS['content'],
+            "width" => $VARS['width'],
+            "order" => $VARS['order']
+        ];
+
+        if ($database->has('tiles', ["tileid" => $VARS['tileid']])) {
+            $database->update('tiles', $data, ["tileid" => $VARS['tileid']]);
+        } else {
+            $database->insert('tiles', $data);
+        }
+        exit(json_encode(["status" => "OK"]));
     case "signout":
         session_destroy();
         header('Location: index.php');

@@ -43,5 +43,6 @@ define("STRINGS", [
     "publication saved" => "Publication saved.",
     "publication deleted" => "Publication deleted.",
     "invalid pubid" => "Invalid publication ID.",
-    "mailing lists" => "Mailing Lists"
+    "mailing lists" => "Mailing Lists",
+    "choose publication" => "Choose a publication to edit content."
 ]);
