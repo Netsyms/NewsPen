@@ -16,8 +16,9 @@ redirectifnotloggedin();
             <th data-priority="1"><i class="fa fa-fw fa-font hidden-xs"></i> <?php lang('name'); ?></th>
             <th data-priority="2"><i class="fa fa-fw fa-calendar hidden-xs"></i> <?php lang('date'); ?></th>
             <th data-priority="2"><i class="fa fa-fw fa-user hidden-xs"></i> <?php lang('author'); ?></th>
-            <th data-priority="3"><i class="fa fa-fw fa-star hidden-xs"></i> <?php lang('style'); ?></th>
-            <th data-priority="3"><i class="fa fa-fw fa-columns hidden-xs"></i> <?php lang('columns'); ?></th>
+            <th data-priority="4"><i class="fa fa-fw fa-star hidden-xs"></i> <?php lang('style'); ?></th>
+            <th data-priority="4"><i class="fa fa-fw fa-columns hidden-xs"></i> <?php lang('columns'); ?></th>
+            <th data-priority="3"><i class="fa fa-fw fa-file-o hidden-xs"></i> <?php lang('page size'); ?></th>
             <th data-priority="2"><i class="fa fa-fw fa-eye hidden-xs"></i> <?php lang('visibility'); ?></th>
         </tr>
     </thead>
@@ -30,8 +31,9 @@ redirectifnotloggedin();
             <th data-priority="1"><i class="fa fa-fw fa-font hidden-xs"></i> <?php lang('name'); ?></th>
             <th data-priority="2"><i class="fa fa-fw fa-calendar hidden-xs"></i> <?php lang('date'); ?></th>
             <th data-priority="2"><i class="fa fa-fw fa-user hidden-xs"></i> <?php lang('author'); ?></th>
-            <th data-priority="3"><i class="fa fa-fw fa-star hidden-xs"></i> <?php lang('style'); ?></th>
-            <th data-priority="3"><i class="fa fa-fw fa-columns hidden-xs"></i> <?php lang('columns'); ?></th>
+            <th data-priority="4"><i class="fa fa-fw fa-star hidden-xs"></i> <?php lang('style'); ?></th>
+            <th data-priority="4"><i class="fa fa-fw fa-columns hidden-xs"></i> <?php lang('columns'); ?></th>
+            <th data-priority="3"><i class="fa fa-fw fa-file-o hidden-xs"></i> <?php lang('page size'); ?></th>
             <th data-priority="2"><i class="fa fa-fw fa-eye hidden-xs"></i> <?php lang('visibility'); ?></th>
         </tr>
     </tfoot>

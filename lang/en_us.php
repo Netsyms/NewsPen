@@ -33,6 +33,7 @@ define("STRINGS", [
     "style" => "Style",
     "columns" => "Columns",
     "visibility" => "Visibility",
+    "page size" => "Page Size",
     "adding publication" => "Adding Publication",
     "cloning publication" => "Copying {opub} <i class=\"fa fa-angle-right\"></i> {npub}",
     "editing publication" => "Editing {pub}",
@@ -44,5 +45,9 @@ define("STRINGS", [
     "publication deleted" => "Publication deleted.",
     "invalid pubid" => "Invalid publication ID.",
     "mailing lists" => "Mailing Lists",
-    "choose publication" => "Choose a publication to edit content."
+    "choose publication" => "Choose a publication to edit content.",
+    "page orientation" => "Page Orientation",
+    "portrait" => "Portrait",
+    "landscape" => "Landscape",
+    "page size and orientation" => "{size} ({orientation})"
 ]);

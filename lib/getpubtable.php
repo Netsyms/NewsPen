@@ -35,6 +35,9 @@ switch ($VARS['order'][0]['column']) {
         $order = ["columns" => $sortby];
         break;
     case 7:
+        $order = ["sizename" => $sortby];
+        break;
+    case 8:
         $order = ["permname" => $sortby];
         break;
 }
@@ -47,6 +50,7 @@ if (!is_empty($VARS['search']['value'])) {
         "pubname[~]" => $VARS['search']['value'],
         "pubdate[~]" => $VARS['search']['value'],
         "stylename[~]" => $VARS['search']['value'],
+        "sizename[~]" => $VARS['search']['value'],
         "permname[~]" => $VARS['search']['value']
     ];
     $where = $wherenolimit;
@@ -61,7 +65,8 @@ if (!is_null($order)) {
 
 $pubs = $database->select('publications', [
     '[>]pub_styles' => ['styleid' => 'styleid'],
-    '[>]pub_permissions' => ['permid' => 'permid']
+    '[>]pub_permissions' => ['permid' => 'permid'],
+    '[>]page_sizes' => ['page_size' => 'sizeid']
         ], [
     'pubid',
     'pubname',
@@ -70,7 +75,10 @@ $pubs = $database->select('publications', [
     'stylename',
     'columns',
     'permname',
-    'publications.permid'
+    'publications.permid',
+    "page_size",
+    "sizename",
+    "landscape"
         ], $where);
 
 
@@ -99,6 +107,10 @@ for ($i = 0; $i < count($pubs); $i++) {
         }
         $pubs[$i]["username"] = $usercache[$pubs[$i]['uid']]['name'];
     }
+    $pubs[$i]["pagesize"] = lang2("page size and orientation", [
+        "size" => $pubs[$i]["sizename"],
+        "orientation" => ( $pubs[$i]["landscape"] == 0 ? lang("portrait", false) : lang("landscape", false) )
+            ], false);
 }
 $out['pubs'] = $pubs;
 

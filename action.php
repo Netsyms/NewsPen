@@ -49,13 +49,21 @@ switch ($VARS['action']) {
         if (!$database->has('pub_permissions', ["permid" => $VARS['perm']])) {
             returnToSender('invalid_parameters');
         }
+        if (!$database->has('page_sizes', ["sizeid" => $VARS['size']])) {
+            returnToSender('invalid_parameters');
+        }
+        if (!is_numeric($VARS['landscape']) || ((int) $VARS['landscape'] !== 0 && (int) $VARS['landscape'] !== 1)) {
+            returnToSender('invalid_parameters');
+        }
 
         $data = [
             'pubname' => $VARS['name'],
             'pubdate' => date("Y-m-d H:i:s"),
             'styleid' => $VARS['style'],
             'columns' => $VARS['columns'],
-            'permid' => $VARS['perm']
+            'permid' => $VARS['perm'],
+            'page_size' => $VARS['size'],
+            'landscape' => $VARS['landscape']
         ];
 
         if ($insert) {

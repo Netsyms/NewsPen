@@ -46,6 +46,7 @@ var pubtable = $('#pubtable').DataTable({
                     row.username,
                     row.stylename,
                     row.columns,
+                    row.pagesize,
                     row.permname
                 ]);
             });

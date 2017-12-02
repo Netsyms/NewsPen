@@ -10,7 +10,7 @@ $pubdata = [];
 if (is_numeric($VARS['pubid'])) {
     if ($database->has('publications', ['pubid' => $VARS['pubid']])) {
         $pub = $VARS['pubid'];
-        $pubdata = $database->get("publications", ["pubname", "pubdate", "styleid", "columns"], ["pubid" => $pub]);
+        $pubdata = $database->get("publications", ["pubname", "pubdate", "styleid", "columns", "page_size", "landscape"], ["pubid" => $pub]);
     } else {
         header("Location: app.php?page=content&msg=invalid_pubid");
         die();
@@ -18,7 +18,7 @@ if (is_numeric($VARS['pubid'])) {
 }
 
 if ($pub === false) {
-    $pubs = $database->select("publications", ["pubid", "pubname"], ["uid" => $_SESSION['uid']]);
+    $pubs = $database->select("publications", ["pubid", "pubname"], ["uid" => $_SESSION['uid'], "ORDER" => "pubname"]);
     ?>
     <div class="container">
         <label for="pubid"><?php lang("choose publication"); ?></label>

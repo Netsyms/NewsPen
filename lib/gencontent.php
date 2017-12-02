@@ -6,7 +6,7 @@ if (!defined("IN_NEWSPEN")) {
     if (is_numeric($VARS['pubid'])) {
         if ($database->has('publications', ['pubid' => $VARS['pubid']])) {
             $pub = $VARS['pubid'];
-            $pubdata = $database->get("publications", ["pubname", "pubdate", "styleid", "columns"], ["pubid" => $pub]);
+            $pubdata = $database->get("publications", ["pubname", "pubdate", "styleid", "columns", "page_size", "landscape"], ["pubid" => $pub]);
         } else {
             die(lang("invalid parameters", false));
         }
@@ -30,6 +30,12 @@ if (defined("EDIT_MODE") && EDIT_MODE == true) {
 <?php $pubcss = $database->get("pub_styles", "css", ["styleid" => $pubdata["styleid"]]); ?>
     .pub-content {
 <?php echo $pubcss; ?>
+    }
+    
+    <?php $pagesize = $database->get("page_sizes", ["sizewidth (width)", "sizeheight (height)"], ["sizeid" => $pubdata["page_size"]]); ?>
+    .pub-content {
+        max-width: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["width"] : $pagesize["height"]); ?>;
+        min-height: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["height"] : $pagesize["width"]); ?>;
     }
 </style>
 
@@ -85,10 +91,11 @@ $content = ob_get_clean();
 
 if (defined("HTML_ME") || !defined("IN_NEWSPEN")) {
     $contentcss = file_get_contents(__DIR__ . "/../static/css/content.css");
+    $title = htmlspecialchars($pubdata["pubname"] . " | " . date("Y-m-d", strtotime($pubdata["pubdate"])));
     $content = "<!DOCTYPE html>\n"
             . "<meta charset=\"utf-8\">\n"
             . "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
-            . "<title></title>\n"
+            . "<title>$title</title>\n"
             . "<style nonce=\"$SECURE_NONCE\">$contentcss</style>\n"
             . "$content";
     // Credit: https://stackoverflow.com/a/709684

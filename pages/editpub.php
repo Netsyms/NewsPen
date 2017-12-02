@@ -8,7 +8,9 @@ $pubdata = [
     'pubdate' => '',
     'styleid' => '',
     'columns' => '',
-    'permid' => ''
+    'permid' => '',
+    'page_size' => 1,
+    'landscape' => 0
 ];
 
 $editing = false;
@@ -26,7 +28,9 @@ if (!is_empty($VARS['id'])) {
                     'pubdate',
                     'styleid',
                     'columns',
-                    'permid'
+                    'permid',
+                    'page_size',
+                    'landscape'
                         ], [
                     'pubid' => $VARS['id']
                 ])[0];
@@ -66,16 +70,45 @@ if (!is_empty($VARS['id'])) {
             </div>
 
             <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label for="style"><i class="fa fa-star"></i> <?php lang('style'); ?></label>
+                                <select name="style" class="form-control" required>
+                                    <?php
+                                    $styles = $database->select("pub_styles", ['styleid', 'stylename']);
+                                    foreach ($styles as $s) {
+                                        $si = $s['styleid'];
+                                        $sn = $s['stylename'];
+                                        $ss = $pubdata["styleid"] == $si ? " selected" : "";
+                                        echo "<option value=\"$si\"$ss>$sn</option>\n";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-8">
+
+                        </div>
+                    </div>
+                </div>
                 <div class="col-xs-12 col-md-3">
                     <div class="form-group">
-                        <label for="style"><i class="fa fa-star"></i> <?php lang('style'); ?></label>
-                        <select name="style" class="form-control" required>
+                        <label for="columns"><i class="fa fa-columns"></i> <?php lang('columns'); ?></label>
+                        <input type="number" class="form-control" id="columns" name="columns" placeholder="2" value="<?php echo $pubdata['columns']; ?>" required />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <div class="form-group">
+                        <label for="size"><i class="fa fa-file-o"></i> <?php lang('page size'); ?></label>
+                        <select name="size" class="form-control" required>
                             <?php
-                            $styles = $database->select("pub_styles", ['styleid', 'stylename']);
-                            foreach ($styles as $s) {
-                                $si = $s['styleid'];
-                                $sn = $s['stylename'];
-                                $ss = $pubdata["styleid"] == $si ? " selected" : "";
+                            $sizes = $database->select("page_sizes", ['sizeid', 'sizename', 'sizewidth', 'sizeheight']);
+                            foreach ($sizes as $s) {
+                                $si = $s['sizeid'];
+                                $sn = $s['sizename'];
+                                $ss = $pubdata["page_size"] == $si ? " selected" : "";
                                 echo "<option value=\"$si\"$ss>$sn</option>\n";
                             }
                             ?>
@@ -84,8 +117,11 @@ if (!is_empty($VARS['id'])) {
                 </div>
                 <div class="col-xs-12 col-md-3">
                     <div class="form-group">
-                        <label for="columns"><i class="fa fa-columns"></i> <?php lang('columns'); ?></label>
-                        <input type="number" class="form-control" id="columns" name="columns" placeholder="2" value="<?php echo $pubdata['columns']; ?>" required />
+                        <label for="landscape"><i class="fa fa-repeat"></i> <?php lang('page orientation'); ?></label>
+                        <select name="landscape" class="form-control" required>
+                            <option value="0"<?php echo $pubdata["landscape"] == 0 ? " selected" : "" ?>><?php lang("portrait"); ?></option>
+                            <option value="1"<?php echo $pubdata["landscape"] == 1 ? " selected" : "" ?>><?php lang("landscape"); ?></option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-3">

@@ -6,10 +6,8 @@
 
 .pub-content {
     border: 1px solid grey;
-    max-width: 8.5in;
     margin: 0px auto;
     box-shadow: 5px 5px 15px -3px rgba(0,0,0,0.75);
-    min-height: 11in;
 }
 
 .tile {
