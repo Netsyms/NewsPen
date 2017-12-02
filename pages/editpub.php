@@ -160,7 +160,7 @@ if (!is_empty($VARS['id'])) {
             <?php
             if ($editing && !$cloning) {
                 ?>
-                &nbsp; <a href="app.php?page=content&pubid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-primary"><i class="fa fa-pencil"></i> <?php lang('edit content'); ?></a>
+            &nbsp; <button type="submit" name="gotocontent" value="1" class="btn btn-primary"><i class="fa fa-pencil"></i> <?php lang('edit content'); ?></button>
                 <a href="action.php?action=deletepub&source=home&pubid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger btn-xs pull-right mgn-top-8px"><i class="fa fa-times"></i> <?php lang('delete'); ?></a>
                 <?php
             }

@@ -91,6 +91,10 @@ switch ($VARS['action']) {
             $database->update('publications', $data, ['pubid' => $VARS['pubid']]);
         }
 
+        if (isset($VARS["gotocontent"])) {
+            header("Location: app.php?page=content&pubid=" . $VARS['pubid']);
+            die();
+        }
         returnToSender("pub_saved");
     case "deletepub":
         if ($database->has('publications', ['pubid' => $VARS['pubid']])) {
