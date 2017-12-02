@@ -40,8 +40,47 @@ if ($pub === false) {
 } else {
     ?>
 
+    <div class="modal fade" id="tile-options-modal" tabindex="-1" role="dialog" aria-labelledby="tile-options-title">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="tile-options-title"><?php lang("edit tile"); ?></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="width" class="control-label"><i class="fa fa-text-width"></i> <?php lang("width"); ?></label>
+                        <input type="number" class="form-control" id="width">
+                    </div>
+                    <div class="form-group">
+                        <label for="order" class="control-label"><i class="fa fa-sort"></i> <?php lang("order"); ?></label>
+                        <input type="number" class="form-control" id="order">
+                    </div>
+                    <div class="form-group">
+                        <label for="style" class="control-label"><i class="fa fa-star"></i> <?php lang("style"); ?></label>
+                        <select id="style" class="form-control">
+                            <?php
+                            $styles = $database->select("tile_styles", ['styleid', 'stylename']);
+                            foreach ($styles as $s) {
+                                $si = $s['styleid'];
+                                $sn = $s['stylename'];
+                                echo "<option value=\"$si\">$sn</option>\n";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php lang("close"); ?></button>
+                    <button type="button" class="btn btn-primary" id="modal-save-btn" data-tile=""><?php lang("save"); ?></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="btn-group mgn-btm-10px">
         <div class="btn btn-success" id="new_tile_btn"><i class="fa fa-plus"></i> <?php lang("new tile"); ?></div>
+        <a class="btn btn-primary" id="preview_btn" href="lib/gencontent.php?pubid=1" target="_BLANK"><i class="fa fa-search"></i> <?php lang("preview"); ?></a>
     </div>
 
     <div class="pages-box">

@@ -9,7 +9,7 @@ $pubdata = [
     'styleid' => '',
     'columns' => '',
     'permid' => ''
-    ];
+];
 
 $editing = false;
 $cloning = false;
@@ -21,8 +21,7 @@ if (!is_empty($VARS['id'])) {
             $cloning = true;
         }
         $pubdata = $database->select(
-                        'publications',
-                [
+                    'publications', [
                     'pubname (name)',
                     'pubdate',
                     'styleid',
@@ -118,6 +117,7 @@ if (!is_empty($VARS['id'])) {
 
         <div class="panel-footer">
             <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php lang("save"); ?></button>
+            &nbsp; <a href="app.php?page=content&pubid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-primary"><i class="fa fa-pencil"></i> <?php lang('edit content'); ?></a>
             <?php
             if ($editing && !$cloning) {
                 ?>
