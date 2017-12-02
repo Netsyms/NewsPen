@@ -49,5 +49,15 @@ define("STRINGS", [
     "page orientation" => "Page Orientation",
     "portrait" => "Portrait",
     "landscape" => "Landscape",
-    "page size and orientation" => "{size} ({orientation})"
+    "page size and orientation" => "{size} ({orientation})",
+    "new tile" => "New Tile",
+    "preview" => "Preview",
+    "width" => "Width",
+    "order" => "Order",
+    "close" => "Close",
+    "edit tile" => "Edit Tile",
+    "save" => "Save",
+    "edit content" => "Edit Content",
+    "delete" => "Delete",
+    "open" => "Open"
 ]);
