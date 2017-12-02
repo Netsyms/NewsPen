@@ -61,15 +61,24 @@ switch ($VARS['action']) {
         if ($insert) {
             $data['uid'] = $_SESSION['uid'];
             $database->insert('publications', $data);
-            // Make a header to get started
-            $database->insert('tiles', [
-                "pubid" => $database->id(),
-                "page" => 1,
-                "styleid" => 1,
-                "content" => "<h1>" . $VARS['name'] . "</h1>",
-                "width" => $VARS['columns'],
-                "order" => 0]
-            );
+            $pubid = $database->id();
+            if (is_empty($VARS['cloneid']) || !$database->has("publications", ['pubid' => $VARS['cloneid']])) {
+                // Make a header to get started
+                $database->insert('tiles', [
+                    "pubid" => $pubid,
+                    "page" => 1,
+                    "styleid" => 1,
+                    "content" => "<h1>" . $VARS['name'] . "</h1>",
+                    "width" => $VARS['columns'],
+                    "order" => 0]
+                );
+            } else {
+                $tiles = $database->select("tiles", ["page", "styleid", "content", "width", "order"], ["pubid" => $VARS['cloneid']]);
+                foreach ($tiles as $tile) {
+                    $tile["pubid"] = $pubid;
+                    $database->insert("tiles", $tile);
+                }
+            }
         } else {
             $database->update('publications', $data, ['pubid' => $VARS['pubid']]);
         }

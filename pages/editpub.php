@@ -112,6 +112,10 @@ if (!is_empty($VARS['id'])) {
             echo htmlspecialchars($VARS['id']);
         }
         ?>" />
+
+        <?php if ($editing && $cloning) { ?>
+            <input type="hidden" name="cloneid" value="<?php echo htmlspecialchars($VARS['id']); ?>" />
+        <?php } ?>
         <input type="hidden" name="action" value="editpub" />
         <input type="hidden" name="source" value="home" />
 
