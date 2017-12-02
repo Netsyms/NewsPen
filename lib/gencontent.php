@@ -32,7 +32,7 @@ if (defined("EDIT_MODE") && EDIT_MODE == true) {
 <?php echo $pubcss; ?>
     }
     
-    <?php $pagesize = $database->get("page_sizes", ["sizewidth (width)", "sizeheight (height)"], ["sizeid" => $pubdata["page_size"]]); ?>
+<?php $pagesize = $database->get("page_sizes", ["sizewidth (width)", "sizeheight (height)"], ["sizeid" => $pubdata["page_size"]]); ?>
     .pub-content {
         max-width: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["width"] : $pagesize["height"]); ?>;
         min-height: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["height"] : $pagesize["width"]); ?>;
@@ -57,6 +57,7 @@ foreach ($tiles as $tile) {
             order: <?php echo $tile["order"]; ?>;
             width: <?php echo round((($tile["width"] * 1.0) / ($pubdata["columns"] * 1.0) * 100)); ?>%;
             flex-basis: <?php echo round((($tile["width"] * 1.0) / ($pubdata["columns"] * 1.0) * 100)); ?>%;
+            flex: 0 0 calc(<?php echo round((($tile["width"] * 1.0) / ($pubdata["columns"] * 1.0) * 100)); ?>% - 10px);
         }
     <?php
 }

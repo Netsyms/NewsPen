@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 5px;
 }
 
 .pub-content {
@@ -11,12 +13,16 @@
 }
 
 .tile {
-    padding: 10px;
+    margin: 5px;
 }
 
 .tile-html {
     font-family: sans-serif;
     min-height: 10px;
+}
+
+.tile-html img {
+    max-width: 100%;
 }
 
 @media print {
