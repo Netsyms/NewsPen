@@ -1,7 +1,3 @@
-$("#new_tile_btn").click(function () {
-    // TODO
-});
-
 $(".edit-btn").click(function () {
     var tileid = $(this).data("tile");
     $("#tile-" + tileid + "-content .tile-html").summernote({
@@ -114,6 +110,18 @@ $("#edit-tile-save-btn").click(function () {
         // refresh page because the order might not look right
         safeReload();
     }
+    $("#tile-options-modal").modal('hide');
+});
+
+$("#edit-tile-del-btn").click(function () {
+    var tileid = $("#edit-tile-save-btn").data("tile");
+    $("#tile-" + tileid).css("display", "none");
+    $.post("action.php", {
+        action: "deltile",
+        tileid: tileid
+    }, function (d) {
+        safeReload();
+    });
     $("#tile-options-modal").modal('hide');
 });
 

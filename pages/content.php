@@ -71,6 +71,7 @@ if ($pub === false) {
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-xs" id="edit-tile-del-btn"><?php lang("delete"); ?></button>
                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php lang("close"); ?></button>
                     <button type="button" class="btn btn-primary" id="edit-tile-save-btn" data-tile=""><?php lang("save"); ?></button>
                 </div>

@@ -120,6 +120,14 @@ switch ($VARS['action']) {
             $database->insert('tiles', $data);
         }
         exit(json_encode(["status" => "OK"]));
+    case "deltile":
+        header("Content-Type: application/json");
+        if (!$database->has('tiles', ['tileid' => $VARS['tileid']])) {
+            die(json_encode(["status" => "ERROR", "msg" => lang("invalid tileid", false)]));
+        }
+
+        $database->delete('tiles', ["tileid" => $VARS['tileid']]);
+        exit(json_encode(["status" => "OK"]));
     case "signout":
         session_destroy();
         header('Location: index.php');
