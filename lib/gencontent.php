@@ -16,6 +16,15 @@ if (!defined("IN_NEWSPEN")) {
 }
 ob_end_flush();
 ob_start();
+
+if (defined("EDIT_MODE") && EDIT_MODE == true) {
+    ?>
+    <script nonce="<?php echo $SECURE_NONCE; ?>">
+        var pubid = <?php echo $pub; ?>;
+        var pubcolumns = <?php echo $pubdata["columns"]; ?>;
+    </script>
+    <?php
+}
 ?>
 <style nonce="<?php echo $SECURE_NONCE; ?>">
 <?php $pubcss = $database->get("pub_styles", "css", ["styleid" => $pubdata["styleid"]]); ?>

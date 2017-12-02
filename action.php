@@ -61,6 +61,15 @@ switch ($VARS['action']) {
         if ($insert) {
             $data['uid'] = $_SESSION['uid'];
             $database->insert('publications', $data);
+            // Make a header to get started
+            $database->insert('tiles', [
+                "pubid" => $database->id(),
+                "page" => 1,
+                "styleid" => 1,
+                "content" => "<h1>" . $VARS['name'] . "</h1>",
+                "width" => $VARS['columns'],
+                "order" => 0]
+            );
         } else {
             $database->update('publications', $data, ['pubid' => $VARS['pubid']]);
         }
@@ -68,6 +77,7 @@ switch ($VARS['action']) {
         returnToSender("pub_saved");
     case "deletepub":
         if ($database->has('publications', ['pubid' => $VARS['pubid']])) {
+            $database->delete('tiles', ['pubid' => $VARS['pubid']]);
             $database->delete('publications', ['pubid' => $VARS['pubid']]);
             returnToSender("pub_deleted");
         }
