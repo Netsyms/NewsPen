@@ -57,6 +57,10 @@ if ($pub === false) {
                         <input type="number" class="form-control" id="order">
                     </div>
                     <div class="form-group">
+                        <label for="page" class="control-label"><i class="fa fa-file-o"></i> <?php lang("page"); ?></label>
+                        <input type="number" class="form-control" id="page">
+                    </div>
+                    <div class="form-group">
                         <label for="style" class="control-label"><i class="fa fa-star"></i> <?php lang("style"); ?></label>
                         <select id="style" class="form-control">
                             <?php
@@ -94,6 +98,10 @@ if ($pub === false) {
                     <div class="form-group">
                         <label for="order" class="control-label"><i class="fa fa-sort"></i> <?php lang("order"); ?></label>
                         <input type="number" class="form-control" id="neworder" value="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="page" class="control-label"><i class="fa fa-file-o"></i> <?php lang("page"); ?></label>
+                        <input type="number" class="form-control" id="newpage" value="1">
                     </div>
                     <div class="form-group">
                         <label for="style" class="control-label"><i class="fa fa-star"></i> <?php lang("style"); ?></label>

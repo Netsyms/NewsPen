@@ -94,9 +94,11 @@ $("#edit-tile-save-btn").click(function () {
     var tileid = $("#edit-tile-save-btn").data("tile");
     var oldstyle = $("#tile-" + tileid).data("styleid");
     var oldorder = $("#tile-" + tileid).data("order");
+    var oldpage = $("#tile-" + tileid).data("page");
     var newstyle = $("#style").val();
     var width = $("#width").val();
     var order = $("#order").val();
+    var page = $("#page").val();
     $("#tile-" + tileid).data("styleid", newstyle);
     $("#tile-" + tileid + "-content").removeClass("tile-style-" + oldstyle);
     $("#tile-" + tileid + "-content").addClass("tile-style-" + newstyle);
@@ -105,8 +107,9 @@ $("#edit-tile-save-btn").click(function () {
     $("#tile-" + tileid).css("flex-basis", ((width * 1.0) / (pubcolumns * 1.0) * 100) + "%");
     $("#tile-" + tileid).data("order", order);
     $("#tile-" + tileid).css("order", order);
+    $("#tile-" + tileid).data("page", page);
     saveTile(tileid);
-    if (oldorder != order) {
+    if (oldorder != order || oldpage != page) {
         // refresh page because the order might not look right
         safeReload();
     }
@@ -126,10 +129,11 @@ $("#edit-tile-del-btn").click(function () {
 });
 
 $("#new-tile-save-btn").click(function () {
+    var page = $("#newpage").val();
     var style = $("#newstyle").val();
     var width = $("#newwidth").val();
     var order = $("#neworder").val();
-    newTile(1, style, width, order);
+    newTile(page, style, width, order);
 });
 
 $('#tile-options-modal').on('show.bs.modal', function (event) {
@@ -140,6 +144,7 @@ $('#tile-options-modal').on('show.bs.modal', function (event) {
     modal.find('#width').val(tile.data("width"));
     modal.find('#order').val(tile.data("order"));
     modal.find('#style').val(tile.data("styleid"));
+    modal.find('#page').val(tile.data("page"));
     modal.find('#edit-tile-save-btn').data("tile", tileid);
 });
 

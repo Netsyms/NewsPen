@@ -59,5 +59,6 @@ define("STRINGS", [
     "save" => "Save",
     "edit content" => "Edit Content",
     "delete" => "Delete",
-    "open" => "Open"
+    "open" => "Open",
+    "page" => "Page"
 ]);
