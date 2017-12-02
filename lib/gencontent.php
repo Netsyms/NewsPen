@@ -35,7 +35,7 @@ if (defined("EDIT_MODE") && EDIT_MODE == true) {
 <?php $pagesize = $database->get("page_sizes", ["sizewidth (width)", "sizeheight (height)"], ["sizeid" => $pubdata["page_size"]]); ?>
     .pub-content {
         max-width: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["width"] : $pagesize["height"]); ?>;
-        min-height: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["height"] : $pagesize["width"]); ?>;
+        height: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["height"] : $pagesize["width"]); ?>;
     }
     
     .page-safe-line .bottom {
@@ -56,6 +56,9 @@ foreach ($styles as $style) {
 }
 
 foreach ($tiles as $tile) {
+    if ($tile["width"] > $pubdata["columns"]) {
+        $tile["width"] = $pubdata["columns"];
+    }
     ?> 
         #tile-<?php echo $tile["tileid"]; ?> {
             order: <?php echo $tile["order"]; ?>;
