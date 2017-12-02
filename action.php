@@ -101,7 +101,7 @@ switch ($VARS['action']) {
             "pubid" => $VARS['pubid'],
             "page" => $VARS['page'],
             "styleid" => $VARS['styleid'],
-            "content" => $VARS['content'],
+            "content" => trim($VARS['content']),
             "width" => $VARS['width'],
             "order" => $VARS['order']
         ];

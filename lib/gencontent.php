@@ -72,9 +72,7 @@ foreach ($tiles as $tile) {
                     </div>
                 <?php } ?>
                 <div id="tile-<?php echo $tile["tileid"]; ?>-content" class="tile-style-<?php echo $tile["styleid"]; ?>">
-                    <div class="tile-html">
-                        <?php echo $tile["content"]; ?>
-                    </div>
+                    <div class="tile-html"><?php echo $tile["content"]; ?></div>
                 </div>
             </div>
             <?php
