@@ -43,7 +43,7 @@ if (!is_empty($VARS['id'])) {
 ?>
 
 <form role="form" action="action.php" method="POST">
-    <div class="panel panel-blue">
+    <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">
                 <?php

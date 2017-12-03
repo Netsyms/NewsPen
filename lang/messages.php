@@ -25,4 +25,8 @@ define("MESSAGES", [
         "string" => "invalid pubid",
         "type" => "danger"
     ],
+    "no_permission" => [
+        "string" => "no permission",
+        "type" => "danger"
+    ],
 ]);

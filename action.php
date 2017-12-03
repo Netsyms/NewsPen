@@ -33,6 +33,9 @@ switch ($VARS['action']) {
         } else {
             if ($database->has('publications', ['pubid' => $VARS['pubid']])) {
                 $insert = false;
+                if ($database->get("publications", 'uid', ['pubid' => $VARS['pubid']]) != $_SESSION['uid']) {
+                    returnToSender("no_permission");
+                }
             } else {
                 returnToSender("invalid_pubid");
             }
@@ -98,6 +101,9 @@ switch ($VARS['action']) {
         returnToSender("pub_saved");
     case "deletepub":
         if ($database->has('publications', ['pubid' => $VARS['pubid']])) {
+            if ($database->get("publications", 'uid', ['pubid' => $VARS['pubid']]) != $_SESSION['uid']) {
+                returnToSender("no_permission");
+            }
             $database->delete('tiles', ['pubid' => $VARS['pubid']]);
             $database->delete('publications', ['pubid' => $VARS['pubid']]);
             returnToSender("pub_deleted");
@@ -107,6 +113,10 @@ switch ($VARS['action']) {
         header("Content-Type: application/json");
         if (!$database->has('publications', ['pubid' => $VARS['pubid']])) {
             die(json_encode(["status" => "ERROR", "msg" => lang("invalid pubid", false)]));
+        }
+
+        if ($database->get("publications", 'uid', ['pubid' => $VARS['pubid']]) != $_SESSION['uid']) {
+            die(json_encode(["status" => "ERROR", "msg" => lang("no permission", false)]));
         }
 
         $data = [
@@ -128,6 +138,10 @@ switch ($VARS['action']) {
         header("Content-Type: application/json");
         if (!$database->has('tiles', ['tileid' => $VARS['tileid']])) {
             die(json_encode(["status" => "ERROR", "msg" => lang("invalid tileid", false)]));
+        }
+
+        if ($database->get("publications", 'uid', ['pubid' => $VARS['pubid']]) != $_SESSION['uid']) {
+            die(json_encode(["status" => "ERROR", "msg" => lang("no permission", false)]));
         }
 
         $database->delete('tiles', ["tileid" => $VARS['tileid']]);

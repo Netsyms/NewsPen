@@ -62,6 +62,13 @@ if (!is_null($order)) {
     $where["ORDER"] = $order;
 }
 
+$where["OR #perms"] = [
+    "uid" => $_SESSION['uid'],
+    "permname #logg" => "LOGGEDIN",
+    "permname #link" => "LINK"
+];
+
+//var_dump($where);
 
 $pubs = $database->select('publications', [
     '[>]pub_styles' => ['styleid' => 'styleid'],
@@ -82,7 +89,6 @@ $pubs = $database->select('publications', [
         ], $where);
 
 
-
 $out['status'] = "OK";
 if ($filter) {
     $recordsFiltered = $database->count('publications', [
@@ -96,8 +102,12 @@ $out['recordsFiltered'] = $recordsFiltered;
 
 $usercache = [];
 for ($i = 0; $i < count($pubs); $i++) {
-    $pubs[$i]["editbtn"] = '<a class="btn btn-blue btn-xs" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '"><i class="fa fa-pencil-square-o"></i> ' . lang("edit", false) . '</a>';
-    $pubs[$i]["clonebtn"] = '<a class="btn btn-green btn-xs" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '&clone=1"><i class="fa fa-clone"></i> ' . lang("clone", false) . '</a>';
+    if ($pubs[$i]["uid"] == $_SESSION['uid']) {
+        $pubs[$i]["editbtn"] = '<a class="btn btn-primary btn-xs" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '"><i class="fa fa-pencil-square-o"></i> ' . lang("edit", false) . '</a>';
+    } else {
+        $pubs[$i]["editbtn"] = '<a class="btn btn-purple btn-xs" href="app.php?page=content&pubid=' . $pubs[$i]['pubid'] . '"><i class="fa fa-eye"></i> ' . lang("view", false) . '</a>';
+    }
+    $pubs[$i]["clonebtn"] = '<a class="btn btn-success btn-xs" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '&clone=1"><i class="fa fa-clone"></i> ' . lang("clone", false) . '</a>';
     $pubs[$i]["pubdate"] = date(DATETIME_FORMAT, strtotime($pubs[$i]["pubdate"]));
     if (is_null($pubs[$i]['uid'])) {
         $pubs[$i]["username"] = "";

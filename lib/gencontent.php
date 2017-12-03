@@ -1,12 +1,19 @@
 <?php
 require_once __DIR__ . "/../required.php";
-dieifnotloggedin();
 
 if (!defined("IN_NEWSPEN")) {
     if (is_numeric($VARS['pubid'])) {
         if ($database->has('publications', ['pubid' => $VARS['pubid']])) {
             $pub = $VARS['pubid'];
-            $pubdata = $database->get("publications", ["pubname", "pubdate", "styleid", "columns", "page_size", "landscape"], ["pubid" => $pub]);
+            $pubdata = $database->get("publications", ["[>]pub_permissions" => ["permid" => "permid"]], ["pubname", "uid", "pubdate", "styleid", "columns", "page_size", "landscape", "publications.permid", "permname"], ["pubid" => $pub]);
+            if ($pubdata["permname"] != "LINK") {
+                dieifnotloggedin();
+            }
+            if ($pubdata["uid"] != $_SESSION['uid']) {
+                if ($pubdata["permname"] == "OWNER") {
+                    die(lang("no permission"));
+                }
+            }
         } else {
             die(lang("invalid parameters", false));
         }

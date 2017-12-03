@@ -60,5 +60,6 @@ define("STRINGS", [
     "edit content" => "Edit Content",
     "delete" => "Delete",
     "open" => "Open",
-    "page" => "Page"
+    "page" => "Page",
+    "no permission" => "You don't have permission to do that."
 ]);
