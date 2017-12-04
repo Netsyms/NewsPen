@@ -132,7 +132,7 @@ if (!is_empty($VARS['id'])) {
                             $perms = $database->select("pub_permissions", ['permid', 'permname']);
                             foreach ($perms as $p) {
                                 $pi = $p['permid'];
-                                $pn = $p['permname'];
+                                $pn = lang("visibility " . strtolower($p['permname']), false);
                                 $ps = $pubdata["permid"] == $pi ? " selected" : "";
                                 echo "<option value=\"$pi\"$ps>$pn</option>\n";
                             }

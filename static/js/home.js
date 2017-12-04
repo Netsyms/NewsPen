@@ -47,7 +47,7 @@ var pubtable = $('#pubtable').DataTable({
                     row.stylename,
                     row.columns,
                     row.pagesize,
-                    row.permname
+                    row.visibility
                 ]);
             });
             return JSON.stringify(json);

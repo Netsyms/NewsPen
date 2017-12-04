@@ -61,5 +61,9 @@ define("STRINGS", [
     "delete" => "Delete",
     "open" => "Open",
     "page" => "Page",
-    "no permission" => "You don't have permission to do that."
+    "no permission" => "You don't have permission to do that.",
+    "visibility owner" => "Just me",
+    "visibility loggedin" => "People with accounts",
+    "visibility link" => "Anyone with the link",
+    "visibility password" => "Anyone with the link and password",
 ]);
