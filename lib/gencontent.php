@@ -5,13 +5,62 @@ if (!defined("IN_NEWSPEN")) {
     if (is_numeric($VARS['pubid'])) {
         if ($database->has('publications', ['pubid' => $VARS['pubid']])) {
             $pub = $VARS['pubid'];
-            $pubdata = $database->get("publications", ["[>]pub_permissions" => ["permid" => "permid"]], ["pubname", "uid", "pubdate", "styleid", "columns", "page_size", "landscape", "publications.permid", "permname"], ["pubid" => $pub]);
+            $pubdata = $database->get("publications", ["[>]pub_permissions" => ["permid" => "permid"]], ["pubname", "uid", "pubdate", "styleid", "columns", "page_size", "landscape", "publications.permid", "permname", "pwd"], ["pubid" => $pub]);
             if ($pubdata["permname"] != "LINK") {
                 dieifnotloggedin();
             }
             if ($pubdata["uid"] != $_SESSION['uid']) {
                 if ($pubdata["permname"] == "OWNER") {
                     die(lang("no permission"));
+                }
+            }
+            if ($pubdata['permname'] == "LINK" && !is_empty($pubdata['pwd']) && $_SESSION['loggedin'] != true) {
+                $passok = false;
+                $passfail = false;
+                if (isset($VARS['password'])) {
+                    $passok = password_verify($VARS['password'], $pubdata['pwd']);
+                    $passfail = !$passok;
+                }
+                if (!$passok) {
+                    ?>
+                    <!DOCTYPE html>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <title><?php echo htmlspecialchars($pubdata["pubname"] . " | " . date("Y-m-d", strtotime($pubdata["pubdate"]))); ?></title>
+                    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+                    <link href="../static/css/font-awesome.min.css" rel="stylesheet">
+                    <style nonce="<?php echo $SECURE_NONCE; ?>">
+                        #heading {
+                            background-color: #673ab7;
+                        }
+                    </style>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                            <form action="gencontent.php" method="POST" class="panel panel-info">
+                                <div class="panel-heading" id="heading">
+                                    <label class="panel-title" for="password"><i class="fa fa-lock"></i> <?php lang("enter password to view file"); ?></label>
+                                </div>
+                                <div class="panel-body">
+                                    <?php if ($passfail) {
+                                        ?>
+                                        <div class="alert alert-danger">
+                                            <i class="fa fa-times"></i> <?php lang("password incorrect"); ?>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                    <input type="password" name="password" class="form-control" placeholder="<?php lang("password"); ?>" />
+                                    <input type="hidden" name="pubid" value="<?php echo $pub; ?>" />
+                                </div>
+                                <div class="panel-footer">
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> <?php lang("view file"); ?></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <?php
+                    die();
                 }
             }
         } else {
@@ -36,12 +85,12 @@ if (defined("EDIT_MODE") && EDIT_MODE == true) {
 <style nonce="<?php echo $SECURE_NONCE; ?>">
 <?php $pubcss = $database->get("pub_styles", ["css", "cssvars", "cssextra", "background"], ["styleid" => $pubdata["styleid"]]); ?>
     .pub-content {
-        <?php
-        $pubvars = json_decode($pubcss["cssvars"], TRUE);
-        foreach ($pubvars as $name => $val) {
-            echo "--$name: $val;\n";
-        }
-        ?>
+<?php
+$pubvars = json_decode($pubcss["cssvars"], TRUE);
+foreach ($pubvars as $name => $val) {
+    echo "--$name: $val;\n";
+}
+?>
     }
 
     .pub-content {

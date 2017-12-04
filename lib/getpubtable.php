@@ -82,6 +82,7 @@ $pubs = $database->select('publications', [
     'stylename',
     'columns',
     'permname',
+    'pwd',
     'publications.permid',
     "page_size",
     "sizename",
@@ -121,6 +122,9 @@ for ($i = 0; $i < count($pubs); $i++) {
         "size" => $pubs[$i]["sizename"],
         "orientation" => ( $pubs[$i]["landscape"] == 0 ? lang("portrait", false) : lang("landscape", false) )
             ], false);
+    if (!is_empty($pubs[$i]["pwd"])) {
+        $pubs[$i]["permname"] = "password";
+    }
     $pubs[$i]["visibility"] = lang("visibility " . strtolower($pubs[$i]["permname"]), false);
 }
 $out['pubs'] = $pubs;

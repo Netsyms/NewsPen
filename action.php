@@ -58,13 +58,25 @@ switch ($VARS['action']) {
         if (!is_numeric($VARS['landscape']) || ((int) $VARS['landscape'] !== 0 && (int) $VARS['landscape'] !== 1)) {
             returnToSender('invalid_parameters');
         }
+        if ($VARS['password_protect'] == 1) {
+            if (!is_empty($VARS['password'])) {
+                $password = password_hash($VARS['password'], PASSWORD_BCRYPT);
+            } else if (!$insert) {
+                $password = $database->get("publications", 'pwd', ['pubid' => $VARS['pubid']]);
+            }
+            $permission = 3;
+        } else {
+            $password = null;
+            $permission = $VARS['perm'];
+        }
 
         $data = [
             'pubname' => $VARS['name'],
             'pubdate' => date("Y-m-d H:i:s"),
             'styleid' => $VARS['style'],
             'columns' => $VARS['columns'],
-            'permid' => $VARS['perm'],
+            'permid' => $permission,
+            'pwd' => $password,
             'page_size' => $VARS['size'],
             'landscape' => $VARS['landscape']
         ];
@@ -141,7 +153,7 @@ switch ($VARS['action']) {
         }
 
         $pubid = $database->get("tiles", "pubid", ['tileid' => $VARS['tileid']]);
-        
+
         if ($database->get("publications", 'uid', ['pubid' => $pubid]) != $_SESSION['uid']) {
             die(json_encode(["status" => "ERROR", "msg" => lang("no permission", false)]));
         }

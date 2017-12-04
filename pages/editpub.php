@@ -30,7 +30,8 @@ if (!is_empty($VARS['id'])) {
                     'columns',
                     'permid',
                     'page_size',
-                    'landscape'
+                    'landscape',
+                    'pwd'
                         ], [
                     'pubid' => $VARS['id']
                 ])[0];
@@ -131,6 +132,9 @@ if (!is_empty($VARS['id'])) {
                             <?php
                             $perms = $database->select("pub_permissions", ['permid', 'permname']);
                             foreach ($perms as $p) {
+                                if ($p['permname'] == "PASSWORD") {
+                                    continue;
+                                }
                                 $pi = $p['permid'];
                                 $pn = lang("visibility " . strtolower($p['permname']), false);
                                 $ps = $pubdata["permid"] == $pi ? " selected" : "";
@@ -138,6 +142,22 @@ if (!is_empty($VARS['id'])) {
                             }
                             ?>
                         </select>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="password_protect" name="password_protect" value="1" <?php echo is_empty($pubdata['pwd']) ? "" : "checked" ?>> <?php lang("password protect"); ?>
+                            </label>
+                        </div>
+                        <?php if (is_empty($pubdata['pwd'])) { ?>
+                            <style nonce="<?php echo $SECURE_NONCE; ?>">
+                                #password {
+                                    display: none;
+                                }
+                            </style>
+                        <?php } ?>
+                        <div id="password">
+                            <input type="password" name="password" value="" placeholder="<?php lang("password"); ?>" class="form-control" />
+                            <i class="fa fa-info-circle"></i> <?php lang("anyone with link and password can view"); ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -160,7 +180,7 @@ if (!is_empty($VARS['id'])) {
             <?php
             if ($editing && !$cloning) {
                 ?>
-            &nbsp; <button type="submit" name="gotocontent" value="1" class="btn btn-primary"><i class="fa fa-pencil"></i> <?php lang('edit content'); ?></button>
+                &nbsp; <button type="submit" name="gotocontent" value="1" class="btn btn-primary"><i class="fa fa-pencil"></i> <?php lang('edit content'); ?></button>
                 <a href="action.php?action=deletepub&source=home&pubid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger btn-xs pull-right mgn-top-8px"><i class="fa fa-times"></i> <?php lang('delete'); ?></a>
                 <?php
             }

@@ -66,4 +66,9 @@ define("STRINGS", [
     "visibility loggedin" => "People with accounts",
     "visibility link" => "Anyone with the link",
     "visibility password" => "Anyone with the link and password",
+    "password protect" => "Password protect",
+    "anyone with link and password can view" => "When a password is set, anyone with the link and password can view the publication.",
+    "enter password to view file" => "Enter password to view file",
+    "view file" => "View File",
+    "password incorrect" => "Password incorrect."
 ]);
