@@ -140,7 +140,9 @@ switch ($VARS['action']) {
             die(json_encode(["status" => "ERROR", "msg" => lang("invalid tileid", false)]));
         }
 
-        if ($database->get("publications", 'uid', ['pubid' => $VARS['pubid']]) != $_SESSION['uid']) {
+        $pubid = $database->get("tiles", "pubid", ['tileid' => $VARS['tileid']]);
+        
+        if ($database->get("publications", 'uid', ['pubid' => $pubid]) != $_SESSION['uid']) {
             die(json_encode(["status" => "ERROR", "msg" => lang("no permission", false)]));
         }
 

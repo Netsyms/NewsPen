@@ -34,15 +34,37 @@ if (defined("EDIT_MODE") && EDIT_MODE == true) {
 }
 ?>
 <style nonce="<?php echo $SECURE_NONCE; ?>">
-<?php $pubcss = $database->get("pub_styles", "css", ["styleid" => $pubdata["styleid"]]); ?>
+<?php $pubcss = $database->get("pub_styles", ["css", "cssvars", "cssextra", "background"], ["styleid" => $pubdata["styleid"]]); ?>
     .pub-content {
-<?php echo $pubcss; ?>
+        <?php
+        $pubvars = json_decode($pubcss["cssvars"], TRUE);
+        foreach ($pubvars as $name => $val) {
+            echo "--$name: $val;\n";
+        }
+        ?>
+    }
+
+    .pub-content {
+<?php echo $pubcss["css"]; ?>
+    }
+    
+<?php echo $pubcss["cssextra"]; ?>
+    
+    .pub-content {
+        background-image: url('data:image/png;base64,<?php echo $pubcss["background"]; ?>');
     }
     
 <?php $pagesize = $database->get("page_sizes", ["sizewidth (width)", "sizeheight (height)"], ["sizeid" => $pubdata["page_size"]]); ?>
     .pub-content {
         max-width: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["width"] : $pagesize["height"]); ?>;
         height: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["height"] : $pagesize["width"]); ?>;
+    }
+    
+    @media (max-width: 900px) {
+        .pub-content {
+            height: auto;
+            min-height: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["height"] : $pagesize["width"]); ?>;
+        }
     }
     
     .page-safe-line .bottom {
