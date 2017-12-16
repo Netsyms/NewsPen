@@ -1,3 +1,20 @@
+Copyright (c) 2017 Netsyms Technologies.
+
+If you modify and redistribute this project, you must replace the branding 
+assets with your own.
+
+The branding assets include:  
+ * the application icon
+ * the Netsyms N punchcard logo
+ * the Netsyms for Business graph logo
+
+If you are unsure if your usage is allowed, please contact us:  
+https://netsyms.com/contact
+legal@netsyms.com
+
+All other portions of this application, 
+unless otherwise noted (in comments, headers, etc), are licensed as follows:
+
 Mozilla Public License Version 2.0
 ==================================
 
