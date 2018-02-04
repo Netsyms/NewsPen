@@ -76,5 +76,12 @@ define("STRINGS", [
     "anyone with link and password can view" => "When a password is set, anyone with the link and password can view the publication.",
     "enter password to view file" => "Enter password to view file",
     "view file" => "View File",
-    "password incorrect" => "Password incorrect."
+    "password incorrect" => "Password incorrect.",
+    "invalid listid" => "Invalid list ID.",
+    "list saved" => "Mailing list saved.",
+    "list deleted" => "Mailing list deleted.",
+    "adding list" => "Adding mailing list",
+    "cloning list" => "Copying {olist} <i class=\"fa fa-angle-right\"></i> {nlist}",
+    "editing list" => "Editing {list}",
+    "addresses" => "Addresses"
 ]);

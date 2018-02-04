@@ -2,13 +2,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-var pubtable = $('#pubtable').DataTable({
+var table = $('#listtable').DataTable({
     responsive: {
         details: {
             display: $.fn.dataTable.Responsive.display.modal({
                 header: function (row) {
                     var data = row.data();
-                    return "<i class=\"fa fa-cube fa-fw\"></i> " + data[2];
+                    return "<i class=\"fa fa-envelope fa-fw\"></i> " + data[2];
                 }
             }),
             renderer: $.fn.dataTable.Responsive.renderer.tableAll({
@@ -27,30 +27,22 @@ var pubtable = $('#pubtable').DataTable({
             targets: 1,
             orderable: false
         },
-        {
-            targets: 4,
-            orderable: false
-        }
     ],
     order: [
-        [2, 'asc']
+        [1, 'asc']
     ],
     serverSide: true,
     ajax: {
-        url: "lib/getpubtable.php",
+        url: "lib/getlisttable.php",
         dataFilter: function (data) {
             var json = jQuery.parseJSON(data);
             json.data = [];
-            json.pubs.forEach(function (row) {
+            json.lists.forEach(function (row) {
                 json.data.push([
                     "",
                     row.editbtn + " " + row.clonebtn,
-                    row.pubname,
-                    row.pubdate,
-                    row.username,
-                    row.stylename,
-                    row.columns,
-                    row.permname
+                    row.listname,
+                    row.count
                 ]);
             });
             return JSON.stringify(json);

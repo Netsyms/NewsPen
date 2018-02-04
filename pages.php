@@ -53,6 +53,13 @@ define("PAGES", [
             "static/js/maillist.js"
         ],
     ],
+    "editlist" => [
+        "title" => "edit list",
+        "navbar" => false,
+        "scripts" => [
+            "static/js/editlist.js"
+        ],
+    ],
     "404" => [
         "title" => "404 error"
     ]

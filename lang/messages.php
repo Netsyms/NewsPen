@@ -34,4 +34,16 @@ define("MESSAGES", [
         "string" => "no permission",
         "type" => "danger"
     ],
+    "invalid_listid" => [
+        "string" => "invalid listid",
+        "type" => "danger"
+    ],
+    "list_saved" => [
+        "string" => "list saved",
+        "type" => "success"
+    ],
+    "list_deleted" => [
+        "string" => "list deleted",
+        "type" => "success"
+    ],
 ]);

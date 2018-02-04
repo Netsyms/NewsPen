@@ -164,6 +164,55 @@ switch ($VARS['action']) {
 
         $database->delete('tiles', ["tileid" => $VARS['tileid']]);
         exit(json_encode(["status" => "OK"]));
+    case "editlist":
+        $insert = true;
+        if (is_empty($VARS['listid'])) {
+            $insert = true;
+        } else {
+            if ($database->has('mail_lists', ['listid' => $VARS['listid']])) {
+                $insert = false;
+                if ($database->get("mail_lists", 'uid', ['listid' => $VARS['listid']]) != $_SESSION['uid']) {
+                    returnToSender("no_permission");
+                }
+            } else {
+                returnToSender("invalid_listid");
+            }
+        }
+        if (is_empty($VARS['name'])) {
+            returnToSender('invalid_parameters');
+        }
+
+        $data = [
+            'listname' => $VARS['name']
+        ];
+
+        if ($insert) {
+            $data['uid'] = $_SESSION['uid'];
+            $database->insert('mail_lists', $data);
+            $listid = $database->id();
+            if (is_empty($VARS['cloneid']) || !$database->has("mail_lists", ['listid' => $VARS['cloneid']])) {
+                // Yeah, I'm copypasting.  Deal with it.
+            } else {
+                $addresses = $database->select("addresses", ["email", "name"], ["listid" => $VARS['cloneid']]);
+                foreach ($addresses as $addr) {
+                    $addr["listid"] = $listid;
+                    $database->insert("addresses", $addr);
+                }
+            }
+        } else {
+            $database->update('mail_lists', $data, ['listid' => $VARS['listid']]);
+        }
+        returnToSender("list_saved");
+    case "deletelist":
+        if ($database->has('mail_lists', ['listid' => $VARS['listid']])) {
+            if ($database->get("mail_lists", 'uid', ['listid' => $VARS['listid']]) != $_SESSION['uid']) {
+                returnToSender("no_permission");
+            }
+            $database->delete('addresses', ['listid' => $VARS['listid']]);
+            $database->delete('mail_lists', ['listid' => $VARS['listid']]);
+            returnToSender("list_deleted");
+        }
+        returnToSender("invalid_parameters");
     case "signout":
         session_destroy();
         header('Location: index.php');
