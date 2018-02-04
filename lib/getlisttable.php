@@ -75,11 +75,11 @@ $out['recordsFiltered'] = $recordsFiltered;
 $usercache = [];
 for ($i = 0; $i < count($lists); $i++) {
     if ($lists[$i]["uid"] == $_SESSION['uid']) {
-        $lists[$i]["editbtn"] = '<a class="btn btn-primary btn-xs" href="app.php?page=editlist&id=' . $lists[$i]['listid'] . '"><i class="fa fa-pencil-square-o"></i> ' . lang("edit", false) . '</a>';
+        $lists[$i]["editbtn"] = '<a class="btn btn-primary btn-sm" href="app.php?page=editlist&id=' . $lists[$i]['listid'] . '"><i class="fas fa-edit"></i> ' . lang("edit", false) . '</a>';
     } else {
-        $lists[$i]["editbtn"] = '<a class="btn btn-purple btn-xs" href="app.php?page=viewlist&id=' . $lists[$i]['listid'] . '"><i class="fa fa-eye"></i> ' . lang("view", false) . '</a>';
+        $lists[$i]["editbtn"] = '<a class="btn btn-purple btn-sm" href="app.php?page=viewlist&id=' . $lists[$i]['listid'] . '"><i class="fas fa-eye"></i> ' . lang("view", false) . '</a>';
     }
-    $lists[$i]["clonebtn"] = '<a class="btn btn-success btn-xs" href="app.php?page=editlist&id=' . $lists[$i]['listid'] . '&clone=1"><i class="fa fa-clone"></i> ' . lang("clone", false) . '</a>';
+    $lists[$i]["clonebtn"] = '<a class="btn btn-success btn-sm" href="app.php?page=editlist&id=' . $lists[$i]['listid'] . '&clone=1"><i class="fas fa-clone"></i> ' . lang("clone", false) . '</a>';
     if (is_null($lists[$i]['uid'])) {
         $lists[$i]["username"] = "";
     } else {

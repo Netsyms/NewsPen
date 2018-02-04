@@ -1,5 +1,4 @@
 <?php
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -33,24 +32,21 @@ if (!defined("IN_NEWSPEN")) {
                     <meta name="viewport" content="width=device-width, initial-scale=1">
                     <title><?php echo htmlspecialchars($pubdata["pubname"] . " | " . date("Y-m-d", strtotime($pubdata["pubdate"]))); ?></title>
                     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
-                    <link href="../static/css/font-awesome.min.css" rel="stylesheet">
                     <style nonce="<?php echo $SECURE_NONCE; ?>">
                         #heading {
                             background-color: #673ab7;
                         }
                     </style>
                     <br />
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-                            <form action="gencontent.php" method="POST" class="panel panel-info">
-                                <div class="panel-heading" id="heading">
-                                    <label class="panel-title" for="password"><i class="fa fa-lock"></i> <?php lang("enter password to view file"); ?></label>
-                                </div>
-                                <div class="panel-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-4">
+                            <form action="gencontent.php" method="POST" class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><label for="password"><?php lang("enter password to view file"); ?></label></h5>
                                     <?php if ($passfail) {
                                         ?>
                                         <div class="alert alert-danger">
-                                            <i class="fa fa-times"></i> <?php lang("password incorrect"); ?>
+                                            <?php lang("password incorrect"); ?>
                                         </div>
                                         <?php
                                     }
@@ -58,8 +54,8 @@ if (!defined("IN_NEWSPEN")) {
                                     <input type="password" name="password" class="form-control" placeholder="<?php lang("password"); ?>" />
                                     <input type="hidden" name="pubid" value="<?php echo $pub; ?>" />
                                 </div>
-                                <div class="panel-footer">
-                                    <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> <?php lang("view file"); ?></button>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-success"><i class="fas fa-sign-in"></i> <?php lang("view file"); ?></button>
                                 </div>
                             </form>
                         </div>
@@ -101,26 +97,26 @@ foreach ($pubvars as $name => $val) {
     .pub-content {
 <?php echo $pubcss["css"]; ?>
     }
-    
+
 <?php echo $pubcss["cssextra"]; ?>
-    
+
     .pub-content {
         background-image: url('data:image/png;base64,<?php echo $pubcss["background"]; ?>');
     }
-    
+
 <?php $pagesize = $database->get("page_sizes", ["sizewidth (width)", "sizeheight (height)"], ["sizeid" => $pubdata["page_size"]]); ?>
     .pub-content {
         max-width: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["width"] : $pagesize["height"]); ?>;
         height: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["height"] : $pagesize["width"]); ?>;
     }
-    
+
     @media (max-width: 900px) {
         .pub-content {
             height: auto;
             min-height: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["height"] : $pagesize["width"]); ?>;
         }
     }
-    
+
     .page-safe-line .bottom {
         top: calc(<?php echo ($pubdata["landscape"] == 0 ? $pagesize["height"] : $pagesize["width"]); ?> - 5mm);
     }
@@ -131,7 +127,7 @@ foreach ($pubvars as $name => $val) {
 $styles = $database->select("tile_styles", ["styleid", "css"]);
 $tiles = $database->select("tiles", ["tileid", "page", "styleid", "content", "width", "order"], ["pubid" => $pub, "ORDER" => ["page", "order"]]);
 foreach ($styles as $style) {
-    ?> 
+    ?>
         .tile-style-<?php echo $style["styleid"]; ?> {
     <?php echo $style["css"] . "\n"; ?>
         }
@@ -142,7 +138,7 @@ foreach ($tiles as $tile) {
     if ($tile["width"] > $pubdata["columns"]) {
         $tile["width"] = $pubdata["columns"];
     }
-    ?> 
+    ?>
         #tile-<?php echo $tile["tileid"]; ?> {
             order: <?php echo $tile["order"]; ?>;
             width: <?php echo round((($tile["width"] * 1.0) / ($pubdata["columns"] * 1.0) * 100)); ?>%;
@@ -163,6 +159,8 @@ foreach ($tiles as $tile) {
     }
 }
 
+echo '<div id="reset-parent">';
+
 foreach ($pages as $page) {
     ?>
     <div class="pub-content">
@@ -178,9 +176,9 @@ foreach ($pages as $page) {
                         <?php
                         if (defined("EDIT_MODE") && EDIT_MODE == true) {
                             ?><div class="btn-group btn-group-sm">
-                                <button type="button" class="btn btn-default edit-btn" data-tile="<?php echo $tile["tileid"]; ?>"><i class="fa fa-pencil"></i> <?php lang("edit"); ?></button>
+                                <button type="button" class="btn btn-default edit-btn" data-tile="<?php echo $tile["tileid"]; ?>"><i class="fas fa-edit"></i> <?php lang("edit"); ?></button>
                                 <button type="button" class="btn btn-default save-btn" data-tile="<?php echo $tile["tileid"]; ?>"><i class="fa fa-save"></i> <?php lang("save"); ?></button>
-                                <button type="button" class="btn btn-default opts-btn" data-tile="<?php echo $tile["tileid"]; ?>" data-toggle="modal" data-target="#tile-options-modal"><i class="fa fa-gear"></i> <?php lang("options"); ?></button>
+                                <button type="button" class="btn btn-default opts-btn" data-tile="<?php echo $tile["tileid"]; ?>" data-toggle="modal" data-target="#tile-options-modal"><i class="fas fa-cog"></i></button>
                             </div>
                         <?php } ?>
                         <div id="tile-<?php echo $tile["tileid"]; ?>-content" class="tile-style-<?php echo $tile["styleid"]; ?>">
@@ -196,16 +194,19 @@ foreach ($pages as $page) {
     <?php
 }
 
+echo "</div>";
+
 $content = ob_get_clean();
 
 if (defined("HTML_ME") || !defined("IN_NEWSPEN")) {
     $contentcss = file_get_contents(__DIR__ . "/../static/css/content.css");
+    $bootstrapcss = file_get_contents(__DIR__ . "/../static/css/bootstrap.min.css");
     $title = htmlspecialchars($pubdata["pubname"] . " | " . date("Y-m-d", strtotime($pubdata["pubdate"])));
     $content = "<!DOCTYPE html>\n"
             . "<meta charset=\"utf-8\">\n"
             . "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
             . "<title>$title</title>\n"
-            . "<style nonce=\"$SECURE_NONCE\">$contentcss</style>\n"
+            . "<style nonce=\"$SECURE_NONCE\">\n$bootstrapcss\n\n$contentcss</style>\n"
             . "$content";
     // Credit: https://stackoverflow.com/a/709684
     $content = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $content);

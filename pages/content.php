@@ -48,7 +48,7 @@ if ($pub === false) {
                 ?>
             </select>
             <input type="hidden" name="page" value="content" />
-            <button type="submit" class="btn btn-success"><i class="fa fa-folder-open-o"></i> <?php lang("open"); ?></button>
+            <button type="submit" class="btn btn-success"><i class="fas fa-folder-open"></i> <?php lang("open"); ?></button>
         </form>
     </div>
     <?php
@@ -59,24 +59,24 @@ if ($pub === false) {
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <h5 class="modal-title" id="tile-options-title"><?php lang("edit tile"); ?></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="tile-options-title"><?php lang("edit tile"); ?></h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="width" class="control-label"><i class="fa fa-text-width"></i> <?php lang("width"); ?></label>
+                            <label for="width" class="control-label"><i class="fas fa-text-width"></i> <?php lang("width"); ?></label>
                             <input type="number" class="form-control" id="width">
                         </div>
                         <div class="form-group">
-                            <label for="order" class="control-label"><i class="fa fa-sort"></i> <?php lang("order"); ?></label>
+                            <label for="order" class="control-label"><i class="fas fa-sort"></i> <?php lang("order"); ?></label>
                             <input type="number" class="form-control" id="order">
                         </div>
                         <div class="form-group">
-                            <label for="page" class="control-label"><i class="fa fa-file-o"></i> <?php lang("page"); ?></label>
+                            <label for="page" class="control-label"><i class="far fa-file"></i> <?php lang("page"); ?></label>
                             <input type="number" class="form-control" id="page">
                         </div>
                         <div class="form-group">
-                            <label for="style" class="control-label"><i class="fa fa-star"></i> <?php lang("style"); ?></label>
+                            <label for="style" class="control-label"><i class="fas fa-star"></i> <?php lang("style"); ?></label>
                             <select id="style" class="form-control">
                                 <?php
                                 $styles = $database->select("tile_styles", ['styleid', 'stylename']);
@@ -89,8 +89,8 @@ if ($pub === false) {
                             </select>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger btn-xs" id="edit-tile-del-btn"><?php lang("delete"); ?></button>
+                    <div class="modal-footer d-flex">
+                        <button type="button" class="btn btn-danger btn-sm mr-auto" id="edit-tile-del-btn"><?php lang("delete"); ?></button>
                         <button type="button" class="btn btn-default" data-dismiss="modal"><?php lang("close"); ?></button>
                         <button type="button" class="btn btn-primary" id="edit-tile-save-btn" data-tile=""><?php lang("save"); ?></button>
                     </div>
@@ -102,24 +102,24 @@ if ($pub === false) {
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <h5 class="modal-title" id="new-tile-title"><?php lang("new tile"); ?></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="new-tile-title"><?php lang("new tile"); ?></h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="width" class="control-label"><i class="fa fa-text-width"></i> <?php lang("width"); ?></label>
+                            <label for="width" class="control-label"><i class="fas fa-text-width"></i> <?php lang("width"); ?></label>
                             <input type="number" class="form-control" id="newwidth" value="1">
                         </div>
                         <div class="form-group">
-                            <label for="order" class="control-label"><i class="fa fa-sort"></i> <?php lang("order"); ?></label>
+                            <label for="order" class="control-label"><i class="fas fa-sort"></i> <?php lang("order"); ?></label>
                             <input type="number" class="form-control" id="neworder" value="1">
                         </div>
                         <div class="form-group">
-                            <label for="page" class="control-label"><i class="fa fa-file-o"></i> <?php lang("page"); ?></label>
+                            <label for="page" class="control-label"><i class="far fa-file"></i> <?php lang("page"); ?></label>
                             <input type="number" class="form-control" id="newpage" value="1">
                         </div>
                         <div class="form-group">
-                            <label for="style" class="control-label"><i class="fa fa-star"></i> <?php lang("style"); ?></label>
+                            <label for="style" class="control-label"><i class="fas fa-star"></i> <?php lang("style"); ?></label>
                             <select id="newstyle" class="form-control">
                                 <?php
                                 $styles = $database->select("tile_styles", ['styleid', 'stylename']);
@@ -142,11 +142,11 @@ if ($pub === false) {
 
     <?php } ?>
 
-    <div class="btn-group mgn-btm-10px">
+    <div class="btn-group mb-4">
         <?php if ($edit) { ?>
-            <div class="btn btn-success" id="new_tile_btn" data-toggle="modal" data-target="#new-tile-modal"><i class="fa fa-plus"></i> <?php lang("new tile"); ?></div>
+            <div class="btn btn-success" id="new_tile_btn" data-toggle="modal" data-target="#new-tile-modal"><i class="fas fa-plus"></i> <?php lang("new tile"); ?></div>
         <?php } ?>
-        <a class="btn btn-primary" id="preview_btn" href="lib/gencontent.php?pubid=<?php echo $pub; ?>" target="_BLANK"><i class="fa fa-search"></i> <?php lang("preview"); ?></a>
+        <a class="btn btn-primary" id="preview_btn" href="lib/gencontent.php?pubid=<?php echo $pub; ?>" target="_BLANK"><i class="fas fa-search"></i> <?php lang("preview"); ?></a>
     </div>
 
     <div class="pages-box">

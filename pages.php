@@ -10,7 +10,7 @@ define("PAGES", [
     "home" => [
         "title" => "home",
         "navbar" => true,
-        "icon" => "home",
+        "icon" => "fas fa-home",
         "styles" => [
             "static/css/datatables.min.css",
             "static/css/tables.css"
@@ -30,20 +30,20 @@ define("PAGES", [
     "content" => [
         "title" => "content",
         "navbar" => true,
-        "icon" => "paragraph",
+        "icon" => "fas fa-paragraph",
         "styles" => [
-            "static/css/summernote.css",
+            "static/css/summernote-lite.css",
             "static/css/content.css",
         ],
         "scripts" => [
-            "static/js/summernote.min.js",
+            "static/js/summernote-lite.js",
             "static/js/content.js"
         ]
     ],
     "maillist" => [
         "title" => "mailing lists",
         "navbar" => true,
-        "icon" => "envelope",
+        "icon" => "fas fa-envelope",
         "styles" => [
             "static/css/datatables.min.css",
             "static/css/tables.css"

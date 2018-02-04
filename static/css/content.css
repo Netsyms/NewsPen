@@ -36,7 +36,6 @@
 }
 
 .tile-html {
-    font-family: sans-serif;
     min-height: 10px;
 }
 
@@ -62,7 +61,7 @@
     .btn-group, .footer {
         display: none;
     }
-    
+
     .page-safe-line {
         display: none;
     }

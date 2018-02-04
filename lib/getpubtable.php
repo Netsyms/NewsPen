@@ -109,11 +109,11 @@ $out['recordsFiltered'] = $recordsFiltered;
 $usercache = [];
 for ($i = 0; $i < count($pubs); $i++) {
     if ($pubs[$i]["uid"] == $_SESSION['uid']) {
-        $pubs[$i]["editbtn"] = '<a class="btn btn-primary btn-xs" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '"><i class="fa fa-pencil-square-o"></i> ' . lang("edit", false) . '</a>';
+        $pubs[$i]["editbtn"] = '<a class="btn btn-primary btn-sm" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '"><i class="fas fa-edit"></i> ' . lang("edit", false) . '</a>';
     } else {
-        $pubs[$i]["editbtn"] = '<a class="btn btn-purple btn-xs" href="app.php?page=content&pubid=' . $pubs[$i]['pubid'] . '"><i class="fa fa-eye"></i> ' . lang("view", false) . '</a>';
+        $pubs[$i]["editbtn"] = '<a class="btn btn-purple btn-sm" href="app.php?page=content&pubid=' . $pubs[$i]['pubid'] . '"><i class="fas fa-eye"></i> ' . lang("view", false) . '</a>';
     }
-    $pubs[$i]["clonebtn"] = '<a class="btn btn-success btn-xs" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '&clone=1"><i class="fa fa-clone"></i> ' . lang("clone", false) . '</a>';
+    $pubs[$i]["clonebtn"] = '<a class="btn btn-success btn-sm" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '&clone=1"><i class="fas fa-clone"></i> ' . lang("clone", false) . '</a>';
     $pubs[$i]["pubdate"] = date(DATETIME_FORMAT, strtotime($pubs[$i]["pubdate"]));
     if (is_null($pubs[$i]['uid'])) {
         $pubs[$i]["username"] = "";

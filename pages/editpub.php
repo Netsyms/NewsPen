@@ -49,38 +49,36 @@ if (!is_empty($VARS['id'])) {
 ?>
 
 <form role="form" action="action.php" method="POST">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">
+    <div class="card border-deep-purple">
+            <h3 class="card-header text-deep-purple">
                 <?php
                 if ($cloning) {
                     ?>
-                    <i class="fa fa-pencil-square-o"></i> <?php lang2("cloning publication", ['opub' => htmlspecialchars($pubdata['name']), 'npub' => "<span id=\"name_title\">" . htmlspecialchars($pubdata['name']) . "</span>"]); ?>
+                    <i class="fas fa-edit"></i> <?php lang2("cloning publication", ['opub' => htmlspecialchars($pubdata['name']), 'npub' => "<span id=\"name_title\">" . htmlspecialchars($pubdata['name']) . "</span>"]); ?>
                     <?php
                 } else if ($editing) {
                     ?>
-                    <i class="fa fa-pencil-square-o"></i> <?php lang2("editing publication", ['pub' => "<span id=\"name_title\">" . htmlspecialchars($pubdata['name']) . "</span>"]); ?>
+                    <i class="fas fa-edit"></i> <?php lang2("editing publication", ['pub' => "<span id=\"name_title\">" . htmlspecialchars($pubdata['name']) . "</span>"]); ?>
                     <?php
                 } else {
                     ?>
-                    <i class="fa fa-pencil-square-o"></i> <?php lang("adding publication"); ?>
+                    <i class="fas fa-edit"></i> <?php lang("adding publication"); ?>
                     <?php
                 }
                 ?>
             </h3>
-        </div>
-        <div class="panel-body">
+        <div class="card-body">
             <div class="form-group">
                 <label for="name"><i class="fa fa-font"></i> <?php lang("name"); ?></label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="<?php lang("placeholder name"); ?>" required="required" value="<?php echo htmlspecialchars($pubdata['name']); ?>" />
             </div>
 
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-12">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="col-12 col-sm-6 col-md-4">
                             <div class="form-group">
-                                <label for="style"><i class="fa fa-star"></i> <?php lang('style'); ?></label>
+                                <label for="style"><i class="fas fa-star"></i> <?php lang('style'); ?></label>
                                 <select name="style" class="form-control" required>
                                     <?php
                                     $styles = $database->select("pub_styles", ['styleid', 'stylename']);
@@ -94,20 +92,20 @@ if (!is_empty($VARS['id'])) {
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-8">
+                        <div class="col-12 col-sm-6 col-md-8">
 
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-3">
+                <div class="col-12 col-md-3">
                     <div class="form-group">
-                        <label for="columns"><i class="fa fa-columns"></i> <?php lang('columns'); ?></label>
+                        <label for="columns"><i class="fas fa-columns"></i> <?php lang('columns'); ?></label>
                         <input type="number" class="form-control" id="columns" name="columns" placeholder="2" value="<?php echo $pubdata['columns']; ?>" required />
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-3">
+                <div class="col-12 col-md-3">
                     <div class="form-group">
-                        <label for="size"><i class="fa fa-file-o"></i> <?php lang('page size'); ?></label>
+                        <label for="size"><i class="fas fa-file"></i> <?php lang('page size'); ?></label>
                         <select name="size" class="form-control" required>
                             <?php
                             $sizes = $database->select("page_sizes", ['sizeid', 'sizename', 'sizewidth', 'sizeheight']);
@@ -121,18 +119,18 @@ if (!is_empty($VARS['id'])) {
                         </select>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-3">
+                <div class="col-12 col-md-3">
                     <div class="form-group">
-                        <label for="landscape"><i class="fa fa-repeat"></i> <?php lang('page orientation'); ?></label>
+                        <label for="landscape"><i class="fas fa-repeat"></i> <?php lang('page orientation'); ?></label>
                         <select name="landscape" class="form-control" required>
                             <option value="0"<?php echo $pubdata["landscape"] == 0 ? " selected" : "" ?>><?php lang("portrait"); ?></option>
                             <option value="1"<?php echo $pubdata["landscape"] == 1 ? " selected" : "" ?>><?php lang("landscape"); ?></option>
                         </select>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-3">
+                <div class="col-12 col-md-3">
                     <div class="form-group">
-                        <label for="perm"><i class="fa fa-eye"></i> <?php lang('visibility'); ?></label>
+                        <label for="perm"><i class="fas fa-eye"></i> <?php lang('visibility'); ?></label>
                         <select name="perm" class="form-control" required>
                             <?php
                             $perms = $database->select("pub_permissions", ['permid', 'permname']);
@@ -180,13 +178,13 @@ if (!is_empty($VARS['id'])) {
         <input type="hidden" name="action" value="editpub" />
         <input type="hidden" name="source" value="home" />
 
-        <div class="panel-footer">
-            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php lang("save"); ?></button>
+        <div class="card-footer d-flex">
+            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> <?php lang("save"); ?></button>
             <?php
             if ($editing && !$cloning) {
                 ?>
-                &nbsp; <button type="submit" name="gotocontent" value="1" class="btn btn-primary"><i class="fa fa-pencil"></i> <?php lang('edit content'); ?></button>
-                <a href="action.php?action=deletepub&source=home&pubid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger btn-xs pull-right mgn-top-8px"><i class="fa fa-times"></i> <?php lang('delete'); ?></a>
+                &nbsp; <button type="submit" name="gotocontent" value="1" class="btn btn-primary mr-auto"><i class="fas fa-edit"></i> <?php lang('edit content'); ?></button>
+                <a href="action.php?action=deletepub&source=home&pubid=<?php echo htmlspecialchars($VARS['id']); ?>" class="btn btn-danger"><i class="fas fa-times"></i> <?php lang('delete'); ?></a>
                 <?php
             }
             ?>
