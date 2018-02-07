@@ -50,8 +50,8 @@ switch ($VARS['action']) {
         if (!is_numeric($VARS['columns'])) {
             returnToSender('invalid_parameters');
         }
-        if (!$database->has('pub_styles', ["styleid" => $VARS['style']])) {
-            returnToSender('invalid_parameters');
+        if (!preg_match("/([A-Za-z0-9_])+/", $VARS['style'])) {
+            $VARS['style'] = "";
         }
         if (!$database->has('pub_permissions', ["permid" => $VARS['perm']])) {
             returnToSender('invalid_parameters');
@@ -77,7 +77,7 @@ switch ($VARS['action']) {
         $data = [
             'pubname' => $VARS['name'],
             'pubdate' => date("Y-m-d H:i:s"),
-            'styleid' => $VARS['style'],
+            'style' => $VARS['style'],
             'columns' => $VARS['columns'],
             'permid' => $permission,
             'pwd' => $password,

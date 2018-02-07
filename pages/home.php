@@ -21,7 +21,7 @@ redirectifnotloggedin();
             <th data-priority="1"><i class="fas fa-fw fa-font d-none d-md-inline"></i> <?php lang('name'); ?></th>
             <th data-priority="2"><i class="fas fa-fw fa-calendar d-none d-md-inline"></i> <?php lang('date'); ?></th>
             <th data-priority="2"><i class="fas fa-fw fa-user d-none d-md-inline"></i> <?php lang('author'); ?></th>
-            <th data-priority="4"><i class="fas fa-fw fa-star d-none d-md-inline"></i> <?php lang('style'); ?></th>
+            <th data-priority="4"><i class="fas fa-fw fa-star d-none d-md-inline"></i> <?php lang('theme'); ?></th>
             <th data-priority="4"><i class="fas fa-fw fa-columns d-none d-md-inline"></i> <?php lang('columns'); ?></th>
             <th data-priority="3"><i class="fas fa-fw fa-file d-none d-md-inline"></i> <?php lang('page size'); ?></th>
             <th data-priority="2"><i class="fas fa-fw fa-eye d-none d-md-inline"></i> <?php lang('visibility'); ?></th>
@@ -36,7 +36,7 @@ redirectifnotloggedin();
             <th data-priority="1"><i class="fas fa-fw fa-font d-none d-md-inline"></i> <?php lang('name'); ?></th>
             <th data-priority="2"><i class="fas fa-fw fa-calendar d-none d-md-inline"></i> <?php lang('date'); ?></th>
             <th data-priority="2"><i class="fas fa-fw fa-user d-none d-md-inline"></i> <?php lang('author'); ?></th>
-            <th data-priority="4"><i class="fas fa-fw fa-star d-none d-md-inline"></i> <?php lang('style'); ?></th>
+            <th data-priority="4"><i class="fas fa-fw fa-star d-none d-md-inline"></i> <?php lang('theme'); ?></th>
             <th data-priority="4"><i class="fas fa-fw fa-columns d-none d-md-inline"></i> <?php lang('columns'); ?></th>
             <th data-priority="3"><i class="fas fa-fw fa-file d-none d-md-inline"></i> <?php lang('page size'); ?></th>
             <th data-priority="2"><i class="fas fa-fw fa-eye d-none d-md-inline"></i> <?php lang('visibility'); ?></th>

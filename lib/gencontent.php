@@ -9,7 +9,7 @@ if (!defined("IN_NEWSPEN")) {
     if (is_numeric($VARS['pubid'])) {
         if ($database->has('publications', ['pubid' => $VARS['pubid']])) {
             $pub = $VARS['pubid'];
-            $pubdata = $database->get("publications", ["[>]pub_permissions" => ["permid" => "permid"]], ["pubname", "uid", "pubdate", "styleid", "columns", "page_size", "landscape", "publications.permid", "permname", "pwd"], ["pubid" => $pub]);
+            $pubdata = $database->get("publications", ["[>]pub_permissions" => ["permid" => "permid"]], ["pubname", "uid", "pubdate", "style", "columns", "page_size", "landscape", "publications.permid", "permname", "pwd"], ["pubid" => $pub]);
             if ($pubdata["permname"] != "LINK") {
                 dieifnotloggedin();
             }
@@ -84,31 +84,26 @@ if (defined("EDIT_MODE") && EDIT_MODE == true) {
 }
 ?>
 <style nonce="<?php echo $SECURE_NONCE; ?>">
-<?php $pubcss = $database->get("pub_styles", ["css", "cssvars", "cssextra", "background"], ["styleid" => $pubdata["styleid"]]); ?>
+<?php $pubcss = file_get_contents(__DIR__ . "/../themes/" . $pubdata['style'] . "/pub.css"); ?>
     .pub-content {
 <?php
-$pubvars = json_decode($pubcss["cssvars"], TRUE);
+$pubvars = json_decode(file_get_contents(__DIR__ . "/../themes/" . $pubdata['style'] . "/vars.json"), TRUE);
 foreach ($pubvars as $name => $val) {
-    echo "--$name: $val;\n";
+    echo "\t--$name: $val;\n";
 }
+echo $pubcss;
+
+if (file_exists(__DIR__ . "/../themes/" . $pubdata['style'] . "/background.png")) {
+    echo "\n\tbackground-image: url('data:image/png;base64," . base64_encode(file_get_contents(__DIR__ . "/../themes/" . $pubdata['style'] . "/background.png")) . "');";
+}
+
+$pagesize = $database->get("page_sizes", ["sizewidth (width)", "sizeheight (height)"], ["sizeid" => $pubdata["page_size"]]);
 ?>
-    }
-
-    .pub-content {
-<?php echo $pubcss["css"]; ?>
-    }
-
-<?php echo $pubcss["cssextra"]; ?>
-
-    .pub-content {
-        background-image: url('data:image/png;base64,<?php echo $pubcss["background"]; ?>');
-    }
-
-<?php $pagesize = $database->get("page_sizes", ["sizewidth (width)", "sizeheight (height)"], ["sizeid" => $pubdata["page_size"]]); ?>
-    .pub-content {
         max-width: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["width"] : $pagesize["height"]); ?>;
         height: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["height"] : $pagesize["width"]); ?>;
     }
+
+<?php echo file_get_contents(__DIR__ . "/../themes/" . $pubdata['style'] . "/extra.css"); ?>
 
     @media (max-width: 900px) {
         .pub-content {

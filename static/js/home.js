@@ -44,7 +44,7 @@ var pubtable = $('#pubtable').DataTable({
                     row.pubname,
                     row.pubdate,
                     row.username,
-                    row.stylename,
+                    row.style,
                     row.columns,
                     row.pagesize,
                     row.visibility

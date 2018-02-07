@@ -17,7 +17,7 @@ $edit = false;
 if (is_numeric($VARS['pubid'])) {
     if ($database->has('publications', ['pubid' => $VARS['pubid']])) {
         $pub = $VARS['pubid'];
-        $pubdata = $database->get("publications", ["[>]pub_permissions" => ["permid" => "permid"]], ["pubname", "uid", "pubdate", "styleid", "columns", "page_size", "landscape", "publications.permid", "permname"], ["pubid" => $pub]);
+        $pubdata = $database->get("publications", ["[>]pub_permissions" => ["permid" => "permid"]], ["pubname", "uid", "pubdate", "style", "columns", "page_size", "landscape", "publications.permid", "permname"], ["pubid" => $pub]);
         if ($pubdata["uid"] == $_SESSION['uid']) {
             $edit = true;
         } else {

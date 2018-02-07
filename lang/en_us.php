@@ -83,5 +83,6 @@ define("STRINGS", [
     "adding list" => "Adding mailing list",
     "cloning list" => "Copying {olist} <i class=\"fa fa-angle-right\"></i> {nlist}",
     "editing list" => "Editing {list}",
-    "addresses" => "Addresses"
+    "addresses" => "Addresses",
+    "theme" => "Theme"
 ]);

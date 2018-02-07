@@ -34,7 +34,7 @@ switch ($VARS['order'][0]['column']) {
         $order = ["pubdate" => $sortby];
         break;
     case 5:
-        $order = ["stylename" => $sortby];
+        $order = ["style" => $sortby];
         break;
     case 6:
         $order = ["columns" => $sortby];
@@ -54,7 +54,7 @@ if (!is_empty($VARS['search']['value'])) {
     $wherenolimit["AND"]["OR"] = [
         "pubname[~]" => $VARS['search']['value'],
         "pubdate[~]" => $VARS['search']['value'],
-        "stylename[~]" => $VARS['search']['value'],
+        "style[~]" => $VARS['search']['value'],
         "sizename[~]" => $VARS['search']['value'],
         "permname[~]" => $VARS['search']['value']
     ];
@@ -76,7 +76,6 @@ $where["OR #perms"] = [
 //var_dump($where);
 
 $pubs = $database->select('publications', [
-    '[>]pub_styles' => ['styleid' => 'styleid'],
     '[>]pub_permissions' => ['permid' => 'permid'],
     '[>]page_sizes' => ['page_size' => 'sizeid']
         ], [
@@ -84,7 +83,7 @@ $pubs = $database->select('publications', [
     'pubname',
     'uid',
     'pubdate',
-    'stylename',
+    'style',
     'columns',
     'permname',
     'pwd',
@@ -98,7 +97,6 @@ $pubs = $database->select('publications', [
 $out['status'] = "OK";
 if ($filter) {
     $recordsFiltered = $database->count('publications', [
-        '[>]pub_styles' => ['styleid' => 'styleid'],
         '[>]pub_permissions' => ['permid' => 'permid']
             ], 'pubid', $wherenolimit);
 } else {

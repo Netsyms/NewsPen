@@ -11,7 +11,7 @@ redirectifnotloggedin();
 $pubdata = [
     'name' => '',
     'pubdate' => '',
-    'styleid' => '',
+    'style' => '',
     'columns' => '',
     'permid' => '',
     'page_size' => 1,
@@ -31,7 +31,7 @@ if (!is_empty($VARS['id'])) {
                         'publications', [
                     'pubname (name)',
                     'pubdate',
-                    'styleid',
+                    'style',
                     'columns',
                     'permid',
                     'page_size',
@@ -78,15 +78,18 @@ if (!is_empty($VARS['id'])) {
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-4">
                             <div class="form-group">
-                                <label for="style"><i class="fas fa-star"></i> <?php lang('style'); ?></label>
+                                <label for="style"><i class="fas fa-star"></i> <?php lang('theme'); ?></label>
                                 <select name="style" class="form-control" required>
                                     <?php
-                                    $styles = $database->select("pub_styles", ['styleid', 'stylename']);
+                                    $themedir = __DIR__ . "/../themes/";
+                                    $styles = array_diff(scandir($themedir), array('..', '.'));//$database->select("pub_styles", ['styleid', 'stylename']);
                                     foreach ($styles as $s) {
-                                        $si = $s['styleid'];
-                                        $sn = $s['stylename'];
-                                        $ss = $pubdata["styleid"] == $si ? " selected" : "";
-                                        echo "<option value=\"$si\"$ss>$sn</option>\n";
+                                        if (!file_exists($themedir . "$s/info.json")) {
+                                            continue;
+                                        }
+                                        $info = json_decode(file_get_contents($themedir . "$s/info.json"), TRUE);
+                                        $ss = $pubdata["style"] == $s ? " selected" : "";
+                                        echo "<option value=\"$s\"$ss>" . $info['name'] . "</option>\n";
                                     }
                                     ?>
                                 </select>
