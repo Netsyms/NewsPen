@@ -1,5 +1,4 @@
 <?php
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -50,23 +49,23 @@ if (!is_empty($VARS['id'])) {
 
 <form role="form" action="action.php" method="POST">
     <div class="card border-deep-purple">
-            <h3 class="card-header text-deep-purple">
-                <?php
-                if ($cloning) {
-                    ?>
-                    <i class="fas fa-edit"></i> <?php lang2("cloning publication", ['opub' => htmlspecialchars($pubdata['name']), 'npub' => "<span id=\"name_title\">" . htmlspecialchars($pubdata['name']) . "</span>"]); ?>
-                    <?php
-                } else if ($editing) {
-                    ?>
-                    <i class="fas fa-edit"></i> <?php lang2("editing publication", ['pub' => "<span id=\"name_title\">" . htmlspecialchars($pubdata['name']) . "</span>"]); ?>
-                    <?php
-                } else {
-                    ?>
-                    <i class="fas fa-edit"></i> <?php lang("adding publication"); ?>
-                    <?php
-                }
+        <h3 class="card-header text-deep-purple">
+            <?php
+            if ($cloning) {
                 ?>
-            </h3>
+                <i class="fas fa-edit"></i> <?php lang2("cloning publication", ['opub' => htmlspecialchars($pubdata['name']), 'npub' => "<span id=\"name_title\">" . htmlspecialchars($pubdata['name']) . "</span>"]); ?>
+                <?php
+            } else if ($editing) {
+                ?>
+                <i class="fas fa-edit"></i> <?php lang2("editing publication", ['pub' => "<span id=\"name_title\">" . htmlspecialchars($pubdata['name']) . "</span>"]); ?>
+                <?php
+            } else {
+                ?>
+                <i class="fas fa-edit"></i> <?php lang("adding publication"); ?>
+                <?php
+            }
+            ?>
+        </h3>
         <div class="card-body">
             <div class="form-group">
                 <label for="name"><i class="fa fa-font"></i> <?php lang("name"); ?></label>
@@ -75,28 +74,57 @@ if (!is_empty($VARS['id'])) {
 
             <div class="row">
                 <div class="col-12">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <div class="form-group">
-                                <label for="style"><i class="fas fa-star"></i> <?php lang('theme'); ?></label>
-                                <select name="style" class="form-control" required>
-                                    <?php
-                                    $themedir = __DIR__ . "/../themes/";
-                                    $styles = array_diff(scandir($themedir), array('..', '.'));//$database->select("pub_styles", ['styleid', 'stylename']);
-                                    foreach ($styles as $s) {
-                                        if (!file_exists($themedir . "$s/info.json")) {
-                                            continue;
-                                        }
-                                        $info = json_decode(file_get_contents($themedir . "$s/info.json"), TRUE);
-                                        $ss = $pubdata["style"] == $s ? " selected" : "";
-                                        echo "<option value=\"$s\"$ss>" . $info['name'] . "</option>\n";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-8">
+                    <div class="form-group">
+                        <label for="style"><i class="fas fa-star"></i> <?php lang('theme'); ?></label>
+                        <div class="theme_bin border-deep-purple">
+                            <?php
+                            $themedir = __DIR__ . "/../themes/";
+                            $styles = array_diff(scandir($themedir), array('..', '.'));
+                            foreach ($styles as $s) {
+                                if (!file_exists($themedir . "$s/info.json")) {
+                                    continue;
+                                }
+                                $info = json_decode(file_get_contents($themedir . "$s/info.json"), TRUE);
+                                $ss = $pubdata["style"] == $s ? " checked" : "";
 
+                                $colorvars = json_decode(file_get_contents($themedir . "$s/vars.json"), TRUE);
+                                $themecsscolors = "";
+                                $totalcolors = count($info['colors']);
+                                for ($i = 0; $i < $totalcolors; $i++) {
+                                    if ($i == 0) {
+                                        $themecsscolors = $info['colors'][$i] . ",\n";
+                                    }
+                                    $themecsscolors .= $info['colors'][$i] . " " . (($i) / $totalcolors * 100) . "%,\n";
+                                    $themecsscolors .= $info['colors'][$i] . " " . (($i + 1) / $totalcolors * 100) . "%";
+                                    if ($i != $totalcolors - 1) {
+                                        $themecsscolors .= ",\n";
+                                    }
+                                }
+                                ?>
+                                <label>
+                                    <style nonce="<?php echo $SECURE_NONCE; ?>">
+                                        #theme_<?php echo $s; ?> {
+                                            background: <?php echo $colorvars['background']; ?>;
+                                            color: <?php echo $colorvars['text']; ?>;
+                                        }
+
+                                        #themecolors_<?php echo $s; ?> {
+                                            background-image: linear-gradient(
+                                                90deg,
+                                                <?php echo $themecsscolors; ?>
+                                                );
+                                        }
+                                    </style>
+                                    <input type="radio" name="style" value="<?php echo $s; ?>" <?php echo $ss; ?> />
+                                    <div class="card theme" id="theme_<?php echo $s; ?>">
+                                        <div class="theme_colors" id="themecolors_<?php echo $s; ?>">
+                                        </div>
+                                        <div class="card-body m-0 p-1">
+                                            <?php echo $info['name']; ?>
+                                        </div>
+                                    </div>
+                                </label>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -124,7 +152,7 @@ if (!is_empty($VARS['id'])) {
                 </div>
                 <div class="col-12 col-md-3">
                     <div class="form-group">
-                        <label for="landscape"><i class="fas fa-repeat"></i> <?php lang('page orientation'); ?></label>
+                        <label for="landscape"><i class="fas fa-sync"></i> <?php lang('page orientation'); ?></label>
                         <select name="landscape" class="form-control" required>
                             <option value="0"<?php echo $pubdata["landscape"] == 0 ? " selected" : "" ?>><?php lang("portrait"); ?></option>
                             <option value="1"<?php echo $pubdata["landscape"] == 1 ? " selected" : "" ?>><?php lang("landscape"); ?></option>

@@ -1,0 +1,31 @@
+/*
+This Source Code Form is subject to the terms of the Mozilla Public
+License, v. 2.0. If a copy of the MPL was not distributed with this
+file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
+.theme_bin {
+    max-height: 100px;
+    overflow-y: scroll;
+    border-width: 2px;
+    padding: 5px;
+}
+
+.theme_bin label input[type=radio] {
+    visibility: hidden;
+    position: absolute;
+}
+
+.theme_bin label input[type=radio] + .theme {
+    cursor: pointer;
+    border: 0px solid transparent;
+    margin: 2px;
+}
+
+.theme_bin label input[type=radio]:checked + .theme {
+    border: 3px solid rgba(0,0,0,.8);
+}
+
+.theme_bin label .theme .theme_colors {
+    width: 5rem;
+    height: 2rem;
+}

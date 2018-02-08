@@ -23,6 +23,9 @@ define("PAGES", [
     "editpub" => [
         "title" => "edit publication",
         "navbar" => false,
+        "styles" => [
+            "static/css/themeselector.css"
+        ],
         "scripts" => [
             "static/js/editpub.js"
         ],
