@@ -4,7 +4,7 @@ License, v. 2.0. If a copy of the MPL was not distributed with this
 file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 .theme_bin {
-    max-height: 100px;
+    max-height: 300px;
     overflow-y: scroll;
     padding: 5px;
 }
@@ -16,7 +16,7 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 .theme_bin label input[type=radio] + .theme {
     cursor: pointer;
-    border: 0px solid transparent;
+    border: 3px solid white;
     margin: 2px;
 }
 
@@ -28,4 +28,16 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
     width: 100%;
     min-width: 5rem;
     height: 2rem;
+}
+
+.theme_bin label .theme .theme_img {
+    width: 2rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    margin-top: .05rem;
+    margin-bottom: .05rem;
+    max-height: 1.9rem;
+    display: inline;
+    position: absolute;
+    padding: 0px;
 }

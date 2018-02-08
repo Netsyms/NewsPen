@@ -117,6 +117,9 @@ if (!is_empty($VARS['id'])) {
                                     </style>
                                     <input type="radio" name="style" value="<?php echo $s; ?>" <?php echo $ss; ?> />
                                     <div class="card theme" id="theme_<?php echo $s; ?>">
+                                        <?php if (file_exists($themedir . "$s/background.png")) { ?>
+                                            <img src="./themes/<?php echo $s; ?>/background.png" alt="" class="theme_img" />
+                                        <?php } ?>
                                         <div class="theme_colors" id="themecolors_<?php echo $s; ?>">
                                         </div>
                                         <div class="card-body m-0 p-1">
