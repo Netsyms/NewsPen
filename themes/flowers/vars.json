@@ -1,9 +1,11 @@
 {
     "primary": "#008000",
     "secondary": "#77ff77",
+    "medium": "#fc8a5b",
+    "headings": "#008000",
+    "background": "#ffffff",
+    "text": "#000000",
     "secondary-alpha": "rgba(119,255,119,.25)",
-    "text": "#008000",
     "light": "#ffd5d5",
-    "light-alpha": "rgba(255,213,213,.25)",
-    "medium": "#fc8a5b"
+    "light-alpha": "rgba(255,213,213,.25)"
 }

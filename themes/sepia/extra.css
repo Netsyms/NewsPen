@@ -1,0 +1,24 @@
+.tile-html h1,h2,h3,h4,h5,h6 {
+    color: var(--text);
+}
+
+.tile-html blockquote {
+    background-color: var(--light2);
+    border-left: 3px solid var(--secondary);
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+mark {
+    background: #f8edba
+}
+
+.tile-html pre {
+    background-color: var(--light2);
+    border: 1px solid var(--secondary);
+    border-left: 3px solid var(--secondary);
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+
