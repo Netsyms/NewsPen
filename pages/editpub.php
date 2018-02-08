@@ -76,7 +76,7 @@ if (!is_empty($VARS['id'])) {
                 <div class="col-12">
                     <div class="form-group">
                         <label for="style"><i class="fas fa-star"></i> <?php lang('theme'); ?></label>
-                        <div class="theme_bin border-deep-purple">
+                        <div class="theme_bin">
                             <?php
                             $themedir = __DIR__ . "/../themes/";
                             $styles = array_diff(scandir($themedir), array('..', '.'));

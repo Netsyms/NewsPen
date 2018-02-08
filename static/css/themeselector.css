@@ -6,7 +6,6 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 .theme_bin {
     max-height: 100px;
     overflow-y: scroll;
-    border-width: 2px;
     padding: 5px;
 }
 
@@ -26,6 +25,7 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 }
 
 .theme_bin label .theme .theme_colors {
-    width: 5rem;
+    width: 100%;
+    min-width: 5rem;
     height: 2rem;
 }
