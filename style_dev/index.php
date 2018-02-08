@@ -24,38 +24,29 @@
     <form action="doc.php" method="POST" target="preview" id="editform">
         <label>CSS rules to apply to each page:</label>
         <textarea name="pub" id="pub" placeholder="Publication CSS rules" class="form-control" rows="6">
-background-position: right bottom;
-background-repeat: no-repeat;</textarea>
-        <label>Extra CSS:</label>
+background-color: var(--background);</textarea>
+        <label>Extra CSS rules for tile content:</label>
         <textarea name="extra" id="extra" placeholder="Extra CSS" class="form-control" rows="8">
 .tile-html h1,h2,h3,h4,h5,h6 {
-    color: var(--text);
-}
-
-.tile-html blockquote {
-    background-color: var(--light-alpha);
-    border-left: 3px solid var(--secondary);
-    padding: 5px 10px;
-    display: inline-block;
-}
-
-.tile-html pre {
-    background-color: var(--light-alpha);
-    border: 1px solid var(--secondary);
-    border-left: 3px solid var(--secondary);
-    padding: 5px 10px;
-    display: inline-block;
+    color: var(--headings);
 }</textarea>
-        <label>CSS variables (as JSON):</label>
-        <textarea name="vars" id="vars" placeholder="JSON CSS variables" class="form-control" rows="4">
+        <label>Color variables:</label>
+        <textarea name="vars" id="vars" placeholder="Color variables" class="form-control" rows="4">
 {
-    "primary": "#973b01",
-    "secondary": "#bc525b",
-    "text": "#2f0701",
-    "light": "#ffe46f",
-    "light-alpha": "rgba(255,228,111,.25)",
-    "medium": "#ff9e01"
+    "primary": "#ff0000",
+    "secondary": "#00ff00",
+    "medium": "#0000ff",
+    "headings": "#ff00ff",
+    "background": "#ffffff",
+    "text": "#000000"
 }</textarea>
+        <label>Metadata (used for generating theme picker UI):</label>
+        <textarea name="meta" id="meta" placeholder="JSON metadata" class="form-control" rows="4">
+{
+    "name": "Theme Name",
+    "colors": ["#ff0000", "#00ff00", "#0000ff"]
+}
+</textarea>
         <input type="text" class="form-control" name="bgurl" placeholder="Background image URL" />
         <input type="submit" class="btn btn-block btn-primary" value="Reload Preview" />
     </form>

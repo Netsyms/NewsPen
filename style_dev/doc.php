@@ -80,7 +80,7 @@
 <style>
     .pub-content {
         <?php
-        $pubvars = json_decode($_POST['vars']);//json_decode(file_get_contents(__DIR__ . "/pub_styles/" . $_GET["pub"] . "/vars.json"), TRUE);
+        $pubvars = json_decode($_POST['vars']);
         foreach ($pubvars as $name => $val) {
             echo "--$name: $val;\n";
         }
@@ -111,8 +111,17 @@
     }
 </style>
 <style media="all">
-    .tile-style-1 {
-        <?php include __DIR__ . "/tile_styles/" . $_GET["tile"] . "/tile.css"; ?>
+    .tile-style-dots {
+        <?php include __DIR__ . "/tile_styles/dots/tile.css"; ?>
+    }
+    .tile-style-double {
+        <?php include __DIR__ . "/tile_styles/double/tile.css"; ?>
+    }
+    .tile-style-line {
+        <?php include __DIR__ . "/tile_styles/line/tile.css"; ?>
+    }
+    .tile-style-shadow {
+        <?php include __DIR__ . "/tile_styles/shadow/tile.css"; ?>
     }
     #tile-29 {
         order: 1;
@@ -163,12 +172,12 @@
     </div>
     <div class="tile-bin">
         <div class="tile" id="tile-29" data-tileid="29" data-page="1" data-styleid="1" data-width="4" data-order="1">
-            <div id="tile-29-content" class="tile-style-1">
+            <div id="tile-29-content" class="tile-style-none">
                 <div class="tile-html"><h1>Test Publication Header 1</h1><h2>Header 2</h2><h3>Header 3<br></h3></div>
             </div>
         </div>
         <div class="tile" id="tile-31" data-tileid="31" data-page="1" data-styleid="1" data-width="2" data-order="1">
-            <div id="tile-31-content" class="tile-style-1">
+            <div id="tile-31-content" class="tile-style-dots">
                 <div class="tile-html"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praeclare hoc 
                         quidem. Quis istum dolorem timet? Bonum integritas corporis: misera 
                         debilitas. Estne, quaeso, inquam, sitienti in bibendo voluptas? Memini 
@@ -176,7 +185,7 @@
             </div>
         </div>
         <div class="tile" id="tile-30" data-tileid="30" data-page="1" data-styleid="1" data-width="2" data-order="2">
-            <div id="tile-30-content" class="tile-style-1">
+            <div id="tile-30-content" class="tile-style-double">
                 <div class="tile-html"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praeclare hoc 
                         quidem. Quis istum dolorem timet? Bonum integritas corporis: misera 
                         debilitas. Estne, quaeso, inquam, sitienti in bibendo voluptas? Memini 
@@ -184,7 +193,7 @@
             </div>
         </div>
         <div class="tile" id="tile-32" data-tileid="32" data-page="1" data-styleid="1" data-width="4" data-order="3">
-            <div id="tile-32-content" class="tile-style-1">
+            <div id="tile-32-content" class="tile-style-line">
                 <div class="tile-html"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <b>Nunc agendum est subtilius.</b> Aut, Pylades cum sis, dices te esse Orestem, ut moriare pro amico? Causa autem fuit huc veniendi ut quosdam hinc libros promerem. Hoc loco tenere se Triarius non potuit. <i>De illis, cum volemus.</i> Duo Reges: constructio interrete. </p><p>
                         <br></p><pre>Nam cum in Graeco sermone haec ipsa quondam rerum nomina
 novarum * * non videbantur, quae nunc consuetudo diuturna
@@ -203,7 +212,7 @@ trivit;
     </div>
     <div class="tile-bin">
         <div class="tile" id="tile-33" data-tileid="33" data-page="2" data-styleid="1" data-width="3" data-order="1">
-            <div id="tile-33-content" class="tile-style-1">
+            <div id="tile-33-content" class="tile-style-shadow">
                 <div class="tile-html"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ita graviter et severe voluptatem secrevit a bono. Bonum negas esse divitias, praeposìtum esse dicis? Facillimum id quidem est, inquam. Qui potest igitur habitare in beata vita summi mali metus? </p><p>
                         <br></p><ul><li>Nam aliquando posse recte fieri dicunt nulla expectata nec quaesita voluptate.</li><li>Inquit, dasne adolescenti veniam?</li><li>Duo Reges: constructio interrete.</li><li>Idem etiam dolorem saepe perpetiuntur, ne, si id non faciant, incidant in maiorem.</li></ul><p>
                         <br></p><blockquote cite="http://loripsum.net">
