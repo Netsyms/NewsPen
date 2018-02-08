@@ -4,6 +4,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+error_reporting(E_WARNING);
+ini_set('display_errors', 'On');
+
 ?>
 <!DOCTYPE html>
 <meta charset="utf-8">
@@ -166,6 +169,173 @@
         flex: 0 0 calc(50% - 10px);
     }
 </style>
+<style>
+.theme_bin {
+}
+
+.theme_bin label input[type=radio] {
+    visibility: hidden;
+    position: absolute;
+}
+
+.theme_bin label input[type=radio] + .theme {
+    cursor: pointer;
+    border: 0px solid transparent;
+    margin: 2px;
+}
+
+.theme_bin label input[type=radio]:checked + .theme {
+    border: 3px solid rgba(0,0,0,.8);
+}
+
+.theme_bin label .theme .theme_colors {
+    width: 100%;
+    min-width: 5rem;
+    height: 2rem;
+}
+</style>
+<?php
+$error = "";
+if (json_decode($_POST['vars']) === null) {
+	$error .= "Invalid JSON for color variables!";
+}
+if (json_decode($_POST['meta']) === null) {
+	if ($error != "") {
+		$error .= "<br />";
+	}
+	$error .= "Invalid JSON for metadata!";
+}
+if ($error != "") {
+?>
+<div class="alert alert-danger"><b>Error:</b><br /><?php echo $error; ?></div>
+<?php
+}
+?>
+<h4>Theme menu preview:</h4>
+<div class="theme_bin">
+<label>
+                                    <style>
+                                        #theme_blue {
+                                            background: #083045;
+                                            color: #eef0f1;
+                                        }
+
+                                        #themecolors_blue {
+                                            background-image: linear-gradient(
+                                                90deg,
+                                                #284a5c,
+#284a5c 0%,
+#284a5c 33.333333333333%,
+#bc9e52 33.333333333333%,
+#bc9e52 66.666666666667%,
+#ff9e01 66.666666666667%,
+#ff9e01 100%                                                );
+                                        }
+                                    </style>
+                                    <input type="radio" name="style" value="blue"  />
+                                    <div class="card theme" id="theme_blue">
+                                        <div class="theme_colors" id="themecolors_blue">
+                                        </div>
+                                        <div class="card-body m-0 p-1">
+                                            Blue                                        </div>
+                                    </div>
+                                </label>
+                            <?php
+                                $info = json_decode($_POST['meta'], TRUE);
+								$s = 1;
+                                $colorvars = json_decode($_POST['vars'], TRUE);
+                                $themecsscolors = "";
+                                $totalcolors = count($info['colors']);
+                                for ($i = 0; $i < $totalcolors; $i++) {
+                                    if ($i == 0) {
+                                        $themecsscolors = $info['colors'][$i] . ",\n";
+                                    }
+                                    $themecsscolors .= $info['colors'][$i] . " " . (($i) / $totalcolors * 100) . "%,\n";
+                                    $themecsscolors .= $info['colors'][$i] . " " . (($i + 1) / $totalcolors * 100) . "%";
+                                    if ($i != $totalcolors - 1) {
+                                        $themecsscolors .= ",\n";
+                                    }
+                                }
+                                ?>
+                                <label>
+                                    <style>
+                                        #theme_<?php echo $s; ?> {
+                                            background: <?php echo $colorvars['background']; ?>;
+                                            color: <?php echo $colorvars['text']; ?>;
+                                        }
+
+                                        #themecolors_<?php echo $s; ?> {
+                                            background-image: linear-gradient(
+                                                90deg,
+                                                <?php echo $themecsscolors; ?>
+                                                );
+                                        }
+                                    </style>
+                                    <input type="radio" name="style" value="<?php echo $s; ?>" checked />
+                                    <div class="card theme" id="theme_<?php echo $s; ?>">
+                                        <div class="theme_colors" id="themecolors_<?php echo $s; ?>">
+                                        </div>
+                                        <div class="card-body m-0 p-1">
+                                            <?php echo $info['name']; ?>
+                                        </div>
+                                    </div>
+                                </label>
+                                                            <label>
+                                    <style>
+                                        #theme_plain {
+                                            background: #ffffff;
+                                            color: #000000;
+                                        }
+
+                                        #themecolors_plain {
+                                            background-image: linear-gradient(
+                                                90deg,
+                                                #000000,
+#000000 0%,
+#000000 33.333333333333%,
+#ffffff 33.333333333333%,
+#ffffff 66.666666666667%,
+#2196F3 66.666666666667%,
+#2196F3 100%                                                );
+                                        }
+                                    </style>
+                                    <input type="radio" name="style" value="plain"  />
+                                    <div class="card theme" id="theme_plain">
+                                        <div class="theme_colors" id="themecolors_plain">
+                                        </div>
+                                        <div class="card-body m-0 p-1">
+                                            Plain                                        </div>
+                                    </div>
+                                </label>
+                                                            <label>
+                                    <style>
+                                        #theme_sepia {
+                                            background: #d4c69f;
+                                            color: #000000;
+                                        }
+
+                                        #themecolors_sepia {
+                                            background-image: linear-gradient(
+                                                90deg,
+                                                #bc7652,
+#bc7652 0%,
+#bc7652 33.333333333333%,
+#ffe46f 33.333333333333%,
+#ffe46f 66.666666666667%,
+#ff9e01 66.666666666667%,
+#ff9e01 100%                                                );
+                                        }
+                                    </style>
+                                    <input type="radio" name="style" value="sepia" />
+                                    <div class="card theme" id="theme_sepia">
+                                        <div class="theme_colors" id="themecolors_sepia">
+                                        </div>
+                                        <div class="card-body m-0 p-1">
+                                            Sepia                                        </div>
+                                    </div>
+                                </label>
+</div>
+<h4>Theme preview:</h4>
 <div class="pub-content">
     <div class="page-safe-line">
         <div class="bottom"></div>

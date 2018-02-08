@@ -43,7 +43,7 @@ background-color: var(--background);</textarea>
         <label>Metadata (used for generating theme picker UI):</label>
         <textarea name="meta" id="meta" placeholder="JSON metadata" class="form-control" rows="4">
 {
-    "name": "Theme Name",
+    "name": "My Theme",
     "colors": ["#ff0000", "#00ff00", "#0000ff"]
 }
 </textarea>
@@ -51,7 +51,7 @@ background-color: var(--background);</textarea>
         <input type="submit" class="btn btn-block btn-primary" value="Reload Preview" />
     </form>
 </div>
-<iframe id="preview" name="preview" src="doc.php">
+<iframe id="preview" name="preview" src="about:blank">
 
 </iframe>
 <script>
