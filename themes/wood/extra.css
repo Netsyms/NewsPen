@@ -1,0 +1,34 @@
+.tile-html h1,h2,h3,h4,h5,h6 {
+    color: var(--headings);
+}
+
+p, li {
+    color: var(--text);
+}
+
+blockquote, pre, .tile-style-2 * {
+    color: var(--text2) !important;
+}
+
+.tile-bin {
+    background: rgba(0,0,0,0.2);
+}
+
+dd, dfn {
+    color:var(--text);
+}
+
+.tile-html blockquote {
+    background-color: var(--light-alpha);
+    border-left: 3px solid var(--secondary);
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+.tile-html pre {
+    background-color: var(--light-alpha);
+    border: 1px solid var(--secondary);
+    border-left: 3px solid var(--secondary);
+    padding: 5px 10px;
+    display: inline-block;
+}
