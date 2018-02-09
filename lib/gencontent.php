@@ -95,6 +95,8 @@ echo $pubcss;
 
 if (file_exists(__DIR__ . "/../themes/" . $pubdata['style'] . "/background.png")) {
     echo "\n\tbackground-image: url('data:image/png;base64," . base64_encode(file_get_contents(__DIR__ . "/../themes/" . $pubdata['style'] . "/background.png")) . "');";
+} else if (file_exists(__DIR__ . "/../themes/" . $pubdata['style'] . "/background.jpg")) {
+    echo "\n\tbackground-image: url('data:image/jpeg;base64," . base64_encode(file_get_contents(__DIR__ . "/../themes/" . $pubdata['style'] . "/background.jpg")) . "');";
 }
 
 $pagesize = $database->get("page_sizes", ["sizewidth (width)", "sizeheight (height)"], ["sizeid" => $pubdata["page_size"]]);
