@@ -84,5 +84,6 @@ define("STRINGS", [
     "cloning list" => "Copying {olist} <i class=\"fa fa-angle-right\"></i> {nlist}",
     "editing list" => "Editing {list}",
     "addresses" => "Addresses",
-    "theme" => "Theme"
+    "theme" => "Theme",
+    "format" => "Format",
 ]);

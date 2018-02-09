@@ -107,7 +107,8 @@ $out['recordsFiltered'] = $recordsFiltered;
 $usercache = [];
 for ($i = 0; $i < count($pubs); $i++) {
     if ($pubs[$i]["uid"] == $_SESSION['uid']) {
-        $pubs[$i]["editbtn"] = '<a class="btn btn-primary btn-sm" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '"><i class="fas fa-edit"></i> ' . lang("edit", false) . '</a>';
+        $pubs[$i]["editbtn"] = '<a class="btn btn-primary btn-sm" href="app.php?page=content&pubid=' . $pubs[$i]['pubid'] . '"><i class="fas fa-edit"></i> ' . lang("edit", false) . '</a>';
+        $pubs[$i]["editbtn"] .= ' <a class="btn btn-secondary btn-sm" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '"><i class="fas fa-paint-brush"></i> ' . lang("format", false) . '</a>';
     } else {
         $pubs[$i]["editbtn"] = '<a class="btn btn-purple btn-sm" href="app.php?page=content&pubid=' . $pubs[$i]['pubid'] . '"><i class="fas fa-eye"></i> ' . lang("view", false) . '</a>';
     }
