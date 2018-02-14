@@ -12,7 +12,6 @@ $(".edit-btn").click(function () {
             ['insert', ['picture', 'link', 'video', 'table']],
             ['fontsize', ['fontsize']],
             ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']]
         ]
     });
 });
