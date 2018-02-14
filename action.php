@@ -190,17 +190,28 @@ switch ($VARS['action']) {
             $data['uid'] = $_SESSION['uid'];
             $database->insert('mail_lists', $data);
             $listid = $database->id();
-            if (is_empty($VARS['cloneid']) || !$database->has("mail_lists", ['listid' => $VARS['cloneid']])) {
-                // Yeah, I'm copypasting.  Deal with it.
-            } else {
-                $addresses = $database->select("addresses", ["email", "name"], ["listid" => $VARS['cloneid']]);
-                foreach ($addresses as $addr) {
-                    $addr["listid"] = $listid;
-                    $database->insert("addresses", $addr);
-                }
-            }
         } else {
             $database->update('mail_lists', $data, ['listid' => $VARS['listid']]);
+            $listid = $VARS['listid'];
+        }
+
+        $emails = explode(",", $VARS['emails']);
+        $dbemails = $database->select('addresses', 'email', ['listid' => $listid]);
+        $todelete = $dbemails;
+        $toadd = [];
+        foreach ($emails as $m) {
+            if (!in_array($m, $dbemails)) {
+                $toadd[] = $m;
+            }
+
+            $todelete = array_diff($todelete, [$m]);
+        }
+
+        foreach ($todelete as $m) {
+            $database->delete('addresses', ["AND" => ['listid' => $listid, "email" => $m]]);
+        }
+        foreach ($toadd as $m) {
+            $database->insert('addresses', ['listid' => $listid, 'email' => $m, 'name' => '']);
         }
         returnToSender("list_saved");
     case "deletelist":

@@ -12,6 +12,7 @@ $data = [
     'name' => '',
     'id' => ''
 ];
+$emails = [];
 
 $editing = false;
 $cloning = false;
@@ -30,6 +31,7 @@ if (!is_empty($VARS['id'])) {
                         ], [
                     'listid' => $VARS['id']
                 ])[0];
+        $emails = $database->select('addresses', 'email', ['listid' => $VARS['id']]);
     } else {
         // item id is invalid, redirect to a page that won't cause an error when pressing Save
         header('Location: app.php?page=editlist');
@@ -63,8 +65,13 @@ if (!is_empty($VARS['id'])) {
                 <input type="text" class="form-control" id="name" name="name" placeholder="<?php lang("placeholder name"); ?>" required="required" value="<?php echo htmlspecialchars($data['name']); ?>" />
             </div>
 
-            <div class="row">
-
+            <label for="emails"><i class="far fa-envelope"></i> <?php lang("addresses comma separated"); ?></label>
+            <div class="card">
+                <input class="form-control" name="emails" id="emails" type="text" value="<?php
+                foreach ($emails as $m) {
+                    echo "$m,";
+                }
+                ?>" />
             </div>
         </div>
 
@@ -74,9 +81,6 @@ if (!is_empty($VARS['id'])) {
         }
         ?>" />
 
-        <?php if ($editing && $cloning) { ?>
-            <input type="hidden" name="cloneid" value="<?php echo htmlspecialchars($VARS['id']); ?>" />
-        <?php } ?>
         <input type="hidden" name="action" value="editlist" />
         <input type="hidden" name="source" value="maillist" />
 

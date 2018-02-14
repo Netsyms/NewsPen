@@ -59,7 +59,11 @@ define("PAGES", [
     "editlist" => [
         "title" => "edit list",
         "navbar" => false,
+        "styles" => [
+            "static/css/tagsinput.css"
+        ],
         "scripts" => [
+            "static/js/jquery.tagsinput.min.js",
             "static/js/editlist.js"
         ],
     ],

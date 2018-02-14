@@ -88,6 +88,7 @@ for ($i = 0; $i < count($lists); $i++) {
         }
         $lists[$i]["username"] = $usercache[$lists[$i]['uid']]['name'];
     }
+    $lists[$i]['count'] = $database->count('addresses', ['listid' => $lists[$i]["listid"]]);
 }
 $out['lists'] = $lists;
 
