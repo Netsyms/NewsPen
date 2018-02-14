@@ -31,9 +31,9 @@ define("PAGES", [
         ],
     ],
     "content" => [
-        "title" => "content",
+        "title" => "editor",
         "navbar" => true,
-        "icon" => "fas fa-paragraph",
+        "icon" => "fas fa-edit",
         "styles" => [
             "static/css/summernote-lite.css",
             "static/css/content.css",

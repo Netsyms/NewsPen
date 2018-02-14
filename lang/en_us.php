@@ -86,5 +86,6 @@ define("STRINGS", [
     "addresses" => "Addresses",
     "theme" => "Theme",
     "format" => "Format",
-    "addresses comma separated" => "Addresses (comma separated)"
+    "addresses comma separated" => "Addresses (comma separated)",
+    "editor" => "Editor"
 ]);
