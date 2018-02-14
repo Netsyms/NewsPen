@@ -17,7 +17,7 @@ if ($("#grid").length) {
                 display: $.fn.dataTable.Responsive.display.modal({
                     header: function (row) {
                         var data = row.data();
-                        return "<i class=\"fa fa-cube fa-fw\"></i> " + data[2];
+                        return "<i class=\"fas fa-file fa-fw\"></i> " + data[2];
                     }
                 }),
                 renderer: $.fn.dataTable.Responsive.renderer.tableAll({
