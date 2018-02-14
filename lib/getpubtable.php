@@ -110,7 +110,7 @@ for ($i = 0; $i < count($pubs); $i++) {
         $pubs[$i]["editbtn"] = '<a class="btn btn-primary btn-sm" href="app.php?page=content&pubid=' . $pubs[$i]['pubid'] . '"><i class="fas fa-edit"></i> ' . lang("edit", false) . '</a>';
         $pubs[$i]["editbtn"] .= ' <a class="btn btn-secondary btn-sm" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '"><i class="fas fa-paint-brush"></i> ' . lang("format", false) . '</a>';
     } else {
-        $pubs[$i]["editbtn"] = '<a class="btn btn-purple btn-sm" href="app.php?page=content&pubid=' . $pubs[$i]['pubid'] . '"><i class="fas fa-eye"></i> ' . lang("view", false) . '</a>';
+        $pubs[$i]["editbtn"] = '<a class="btn btn-info btn-sm" href="app.php?page=content&pubid=' . $pubs[$i]['pubid'] . '"><i class="fas fa-eye"></i> ' . lang("view", false) . '</a>';
     }
     $pubs[$i]["clonebtn"] = '<a class="btn btn-success btn-sm" href="app.php?page=editpub&id=' . $pubs[$i]['pubid'] . '&clone=1"><i class="fas fa-clone"></i> ' . lang("clone", false) . '</a>';
     $pubs[$i]["pubdate"] = date(DATETIME_FORMAT, strtotime($pubs[$i]["pubdate"]));

@@ -88,5 +88,8 @@ define("STRINGS", [
     "format" => "Format",
     "addresses comma separated" => "Addresses (comma separated)",
     "editor" => "Editor",
-    "publications" => "Publications"
+    "publications" => "Publications",
+    "grid" => "Grid",
+    "list" => "List",
+    "search" => "Search"
 ]);

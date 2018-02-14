@@ -16,6 +16,7 @@ define("PAGES", [
             "static/css/tables.css"
         ],
         "scripts" => [
+            "static/js/shuffle.min.js",
             "static/js/datatables.min.js",
             "static/js/home.js"
         ],
