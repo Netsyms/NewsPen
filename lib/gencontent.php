@@ -105,11 +105,16 @@ $pagesize = $database->get("page_sizes", ["sizewidth (width)", "sizeheight (heig
         height: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["height"] : $pagesize["width"]); ?>;
     }
 
+    /* Set proper colors for the editor */
     .note-dropdown-menu.dropdown-style {
         background: var(--background) !important;
     }
     .note-dropdown-menu.dropdown-style .note-dropdown-item:hover {
         background: rgba(255,255,255,.25) !important;
+    }
+
+    .tile h1,h2,h3,h4,h5,h6 {
+        color: var(--headings);
     }
 
 <?php echo file_get_contents(__DIR__ . "/../themes/" . $pubdata['style'] . "/extra.css"); ?>
