@@ -83,6 +83,8 @@ redirectifnotloggedin();
                 $p["editbtn"] = '<a class="btn btn-info btn-sm" href="app.php?page=content&pubid=' . $p['pubid'] . '"><i class="fas fa-eye"></i> ' . lang("view", false) . '</a>';
             }
 
+            $p["clonebtn"] = '<a class="btn btn-success btn-sm" href="app.php?page=editpub&id=' . $p['pubid'] . '&clone=1"><i class="fas fa-clone"></i> ' . lang("clone", false) . '</a>';
+
 
             $themedir = __DIR__ . "/../themes/";
             $s = $p['style'];
@@ -138,7 +140,7 @@ redirectifnotloggedin();
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <?php echo $p['editbtn']; ?>
+                        <?php echo $p['editbtn'] . " " . $p['clonebtn']; ?>
                     </div>
                 </div>
             </div>
