@@ -91,7 +91,7 @@ redirectifnotloggedin();
             $info = json_decode(file_get_contents($themedir . "$s/info.json"), TRUE);
             $colorvars = json_decode(file_get_contents($themedir . "$s/vars.json"), TRUE);
             ?>
-            <div class="pub__brick col-12 col-sm-6 col-md-4 col-lg-3 mb-4" data-groups="[]" data-keywords="<?php echo htmlspecialchars($p['pubname']) . " " . $p['sizename'] . " " . $p['style'] . " " . $p['longdate']; ?>">
+            <div class="pub__brick col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-4" data-groups="[]" data-keywords="<?php echo htmlspecialchars($p['pubname']) . " " . $p['sizename'] . " " . $p['style'] . " " . $p['longdate']; ?>">
                 <style nonce="<?php echo $SECURE_NONCE; ?>">
                     #pub_card_<?php echo $p['pubid']; ?> {
                         background: <?php echo $colorvars['background']; ?>;
