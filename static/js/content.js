@@ -5,7 +5,15 @@
 $(".edit-btn").click(function () {
     var tileid = $(this).data("tile");
     $("#tile-" + tileid + "-content .tile-html").summernote({
-        focus: true
+        focus: true,
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['insert', ['picture', 'link', 'video', 'table']],
+            ['fontsize', ['fontsize']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+        ]
     });
 });
 
@@ -84,9 +92,9 @@ function safeReload() {
 }
 
 /**
- * Returns true if the tile is being edited, 
+ * Returns true if the tile is being edited,
  * false otherwise.
- * 
+ *
  * @param number tileid
  * @returns boolean
  */
