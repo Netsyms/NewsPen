@@ -44,3 +44,7 @@ body {
     margin-top: 10em;
     text-align: center;
 }
+
+.no-underline, .no-underline:hover {
+    text-decoration: none;
+}

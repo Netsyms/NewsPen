@@ -116,9 +116,11 @@ redirectifnotloggedin();
                     }
                 </style>
                 <div class="card mt-1" id="pub_card_<?php echo $p['pubid']; ?>">
-                    <h5 class="card-header">
-                        <?php echo htmlspecialchars($p['pubname']); ?>
-                    </h5>
+                    <a href="app.php?page=content&pubid=<?php echo $p['pubid']; ?>" class="no-underline">
+                        <h5 class="card-header">
+                            <?php echo htmlspecialchars($p['pubname']); ?>
+                        </h5>
+                    </a>
                     <div class="card-body">
                         <ul class="list-group">
                             <li class="list-group-item">
