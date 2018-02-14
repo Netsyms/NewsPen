@@ -1,8 +1,8 @@
-.tile-html h1,h2,h3,h4,h5,h6 {
+.tile h1,h2,h3,h4,h5,h6 {
     color: var(--text);
 }
 
-.tile-html blockquote {
+.tile blockquote {
     background-color: var(--light2);
     border-left: 3px solid var(--secondary);
     padding: 5px 10px;
@@ -13,7 +13,7 @@ mark {
     background: #f8edba
 }
 
-.tile-html pre {
+.tile pre {
     background-color: var(--light2);
     border: 1px solid var(--secondary);
     border-left: 3px solid var(--secondary);

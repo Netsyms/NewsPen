@@ -1,23 +1,19 @@
-.tile-html h1,h2,h3,h4,h5,h6 {
-    color: var(--headings);
-}
-
-p, li, blockquote, pre{
+.tile p, li, blockquote, pre{
     color: var(--text);
 }
 
-dd, dfn{
+.tile dd, dfn{
     color: var(--text2);
 }
 
-.tile-html blockquote {
+.tile blockquote {
     background-color: var(--light);
     border-left: 3px solid var(--secondary);
     padding: 5px 10px;
     display: inline-block;
 }
 
-.tile-html pre {
+.tile pre {
     background-color: var(--light);
     border: 1px solid var(--secondary);
     border-left: 3px solid var(--secondary);

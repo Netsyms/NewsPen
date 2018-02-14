@@ -1,8 +1,4 @@
-.tile-html h1,h2,h3,h4,h5,h6 {
-    color: var(--headings);
-}
-
-.tile-html blockquote,pre {
+.tile blockquote,pre {
     background-color: var(--light);
     padding: 5px;
 }
