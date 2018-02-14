@@ -8,9 +8,9 @@
 // List of pages and metadata
 define("PAGES", [
     "home" => [
-        "title" => "home",
+        "title" => "publications",
         "navbar" => true,
-        "icon" => "fas fa-home",
+        "icon" => "fas fa-newspaper",
         "styles" => [
             "static/css/datatables.min.css",
             "static/css/tables.css"
@@ -32,7 +32,7 @@ define("PAGES", [
     ],
     "content" => [
         "title" => "editor",
-        "navbar" => true,
+        "navbar" => false,
         "icon" => "fas fa-edit",
         "styles" => [
             "static/css/summernote-lite.css",
