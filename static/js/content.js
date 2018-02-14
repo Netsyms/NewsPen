@@ -7,11 +7,12 @@ $(".edit-btn").click(function () {
     $("#tile-" + tileid + "-content .tile-html").summernote({
         focus: true,
         toolbar: [
+            ['start', ['fullscreen', 'style']],
             ['style', ['bold', 'italic', 'underline', 'clear']],
             ['font', ['strikethrough', 'superscript', 'subscript']],
             ['insert', ['picture', 'link', 'video', 'table']],
             ['fontsize', ['fontsize']],
-            ['para', ['ul', 'ol', 'paragraph']],
+            ['para', ['ul', 'ol', 'paragraph']]
         ]
     });
 });

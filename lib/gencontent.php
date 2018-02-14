@@ -105,6 +105,13 @@ $pagesize = $database->get("page_sizes", ["sizewidth (width)", "sizeheight (heig
         height: <?php echo ($pubdata["landscape"] == 0 ? $pagesize["height"] : $pagesize["width"]); ?>;
     }
 
+    .note-dropdown-menu.dropdown-style {
+        background: var(--background) !important;
+    }
+    .note-dropdown-menu.dropdown-style .note-dropdown-item:hover {
+        background: rgba(255,255,255,.25) !important;
+    }
+
 <?php echo file_get_contents(__DIR__ . "/../themes/" . $pubdata['style'] . "/extra.css"); ?>
 
     @media (max-width: 900px) {

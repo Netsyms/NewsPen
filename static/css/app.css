@@ -48,3 +48,21 @@ body {
 .no-underline, .no-underline:hover {
     text-decoration: none;
 }
+
+.pub-content .note-editable {
+    background-color: transparent !important;
+}
+
+.pub-content .note-statusbar {
+    background-color: rgba(255,255,255,0.75) !important;
+    border-radius: 4px;
+}
+
+.pub-content .note-toolbar {
+    background-color: rgba(255,255,255,0.75) !important;
+    border-radius: 4px;
+}
+
+.pub-content .note-editor {
+    border: 0px transparent !important;
+}
