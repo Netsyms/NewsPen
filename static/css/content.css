@@ -33,6 +33,7 @@
 
 .tile {
     margin: 5px;
+    overflow-x: auto;
 }
 
 .tile-html {
