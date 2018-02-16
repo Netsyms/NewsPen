@@ -120,12 +120,11 @@ $("#edit-tile-save-btn").click(function () {
     $("#tile-" + tileid).data("order", order);
     $("#tile-" + tileid).css("order", order);
     $("#tile-" + tileid).data("page", page);
-    saveTile(tileid);
-    if (oldorder != order || oldpage != page) {
-        // refresh page because the order might not look right
+    $("#edit-tile-save-btn").html("<i class=\"fas fa-cog fa-spin\"></i>");
+    saveTile(tileid, function () {
         safeReload();
-    }
-    $("#tile-options-modal").modal('hide');
+        $("#tile-options-modal").modal('hide');
+    });
 });
 
 $("#edit-tile-del-btn").click(function () {
