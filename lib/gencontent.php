@@ -150,9 +150,18 @@ foreach ($tiles as $tile) {
     ?>
         #tile-<?php echo $tile["tileid"]; ?> {
             order: <?php echo $tile["order"]; ?>;
-            width: <?php echo round((($tile["width"] * 1.0) / ($pubdata["columns"] * 1.0) * 100)); ?>%;
-            flex-basis: <?php echo round((($tile["width"] * 1.0) / ($pubdata["columns"] * 1.0) * 100)); ?>%;
-            flex: 0 0 calc(<?php echo round((($tile["width"] * 1.0) / ($pubdata["columns"] * 1.0) * 100)); ?>% - 10px);
+            width: <?php echo min([100, round((($tile["width"] * 1.0) / ($pubdata["columns"] * 1.0) * 100)) * 2]); ?>%;
+            flex-basis: <?php echo min([100, round((($tile["width"] * 1.0) / ($pubdata["columns"] * 1.0) * 100)) * 2]); ?>%;
+            flex: 0 0 calc(<?php echo min([100, round((($tile["width"] * 1.0) / ($pubdata["columns"] * 1.0) * 100)) * 2]); ?>% - 10px);
+        }
+
+        @media (min-width: 768px) {
+            #tile-<?php echo $tile["tileid"]; ?> {
+                order: <?php echo $tile["order"]; ?>;
+                width: <?php echo round((($tile["width"] * 1.0) / ($pubdata["columns"] * 1.0) * 100)); ?>%;
+                flex-basis: <?php echo round((($tile["width"] * 1.0) / ($pubdata["columns"] * 1.0) * 100)); ?>%;
+                flex: 0 0 calc(<?php echo round((($tile["width"] * 1.0) / ($pubdata["columns"] * 1.0) * 100)); ?>% - 10px);
+            }
         }
     <?php
 }
