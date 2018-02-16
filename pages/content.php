@@ -1,5 +1,4 @@
 <?php
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -65,7 +64,7 @@ if ($pub === false) {
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="width" class="control-label"><i class="fas fa-text-width"></i> <?php lang("width"); ?></label>
-                            <input type="range" class="form-control" id="width" min="1" max="4" step="1">
+                            <input type="range" class="form-control-range" id="width" min="1" max="4" step="1">
                         </div>
                         <div class="form-group">
                             <label for="order" class="control-label"><i class="fas fa-sort"></i> <?php lang("order"); ?></label>
@@ -108,7 +107,7 @@ if ($pub === false) {
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="width" class="control-label"><i class="fas fa-text-width"></i> <?php lang("width"); ?></label>
-                            <input type="range" class="form-control" id="newwidth" value="1" min="1" max="4" step="1">
+                            <input type="range" class="form-control-range" id="newwidth" value="1" min="1" max="4" step="1">
                         </div>
                         <div class="form-group">
                             <label for="order" class="control-label"><i class="fas fa-sort"></i> <?php lang("order"); ?></label>

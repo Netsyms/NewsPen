@@ -37,6 +37,7 @@ define("PAGES", [
         "icon" => "fas fa-edit",
         "styles" => [
             "static/css/summernote-lite.css",
+            "static/css/range.css",
             "static/css/content.css",
         ],
         "scripts" => [
