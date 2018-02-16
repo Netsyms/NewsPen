@@ -65,7 +65,7 @@ if ($pub === false) {
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="width" class="control-label"><i class="fas fa-text-width"></i> <?php lang("width"); ?></label>
-                            <input type="number" class="form-control" id="width">
+                            <input type="range" class="form-control" id="width" min="1" max="4" step="1">
                         </div>
                         <div class="form-group">
                             <label for="order" class="control-label"><i class="fas fa-sort"></i> <?php lang("order"); ?></label>
@@ -108,7 +108,7 @@ if ($pub === false) {
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="width" class="control-label"><i class="fas fa-text-width"></i> <?php lang("width"); ?></label>
-                            <input type="number" class="form-control" id="newwidth" value="1">
+                            <input type="range" class="form-control" id="newwidth" value="1" min="1" max="4" step="1">
                         </div>
                         <div class="form-group">
                             <label for="order" class="control-label"><i class="fas fa-sort"></i> <?php lang("order"); ?></label>

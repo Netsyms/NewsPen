@@ -131,12 +131,14 @@ if (!is_empty($VARS['id'])) {
                         </div>
                     </div>
                 </div>
+                <!--
                 <div class="col-12 col-md-3">
                     <div class="form-group">
                         <label for="columns"><i class="fas fa-columns"></i> <?php lang('columns'); ?></label>
                         <input type="number" class="form-control" id="columns" name="columns" placeholder="2" value="<?php echo $pubdata['columns']; ?>" required />
                     </div>
                 </div>
+                -->
                 <div class="col-12 col-md-3">
                     <div class="form-group">
                         <label for="size"><i class="fas fa-file"></i> <?php lang('page size'); ?></label>

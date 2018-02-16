@@ -47,9 +47,10 @@ switch ($VARS['action']) {
         if (is_empty($VARS['name'])) {
             returnToSender('invalid_parameters');
         }
-        if (!is_numeric($VARS['columns'])) {
+        $VARS['columns'] = 4;
+        /*if (!is_numeric($VARS['columns'])) {
             returnToSender('invalid_parameters');
-        }
+        }*/
         if (!preg_match("/([A-Za-z0-9_])+/", $VARS['style'])) {
             $VARS['style'] = "";
         }
