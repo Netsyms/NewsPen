@@ -4,9 +4,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-
 /**
- * Authentication and account functions.  Connects to a Portal instance.
+ * Authentication and account functions.  Connects to an AccountHub instance.
  */
 
 /**
@@ -35,6 +34,33 @@ function checkLoginServer() {
         } else {
             return false;
         }
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
+/**
+ * Checks if the given AccountHub API key is valid by attempting to
+ * access the API with it.
+ * @param String $key The API key to check
+ * @return boolean TRUE if the key is valid, FALSE if invalid or something went wrong
+ */
+function checkAPIKey($key) {
+    try {
+        $client = new GuzzleHttp\Client();
+
+        $response = $client
+                ->request('POST', PORTAL_API, [
+            'form_params' => [
+                'key' => $key,
+                'action' => "ping"
+            ]
+        ]);
+
+        if ($response->getStatusCode() === 200) {
+            return true;
+        }
+        return false;
     } catch (Exception $e) {
         return false;
     }
@@ -218,9 +244,14 @@ function doLoginUser($username) {
     }
 
     $resp = json_decode($response->getBody(), TRUE);
-    
+
     if ($resp['status'] == "OK") {
         $userinfo = $resp['data'];
+        session_regenerate_id(true);
+        $newSession = session_id();
+        session_write_close();
+        session_id($newSession);
+        session_start();
         $_SESSION['username'] = $username;
         $_SESSION['uid'] = $userinfo['uid'];
         $_SESSION['email'] = $userinfo['email'];
@@ -282,29 +313,26 @@ function simLogin($username, $password) {
     }
 }
 
-function verifyReCaptcha($code) {
-    try {
-        $client = new GuzzleHttp\Client();
-
-        $response = $client
-                ->request('POST', "https://www.google.com/recaptcha/api/siteverify", [
-            'form_params' => [
-                'secret' => RECAPTCHA_SECRET_KEY,
-                'response' => $code
-            ]
-        ]);
-
-        if ($response->getStatusCode() != 200) {
-            return false;
-        }
-
-        $resp = json_decode($response->getBody(), TRUE);
-        if ($resp['success'] === true) {
-            return true;
-        }
+function verifyCaptcheck($session, $answer, $url) {
+    $data = [
+        'session_id' => $session,
+        'answer_id' => $answer,
+        'action' => "verify"
+    ];
+    $options = [
+        'http' => [
+            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method' => 'POST',
+            'content' => http_build_query($data)
+        ]
+    ];
+    $context = stream_context_create($options);
+    $result = file_get_contents($url, false, $context);
+    $resp = json_decode($result, TRUE);
+    if (!$resp['result']) {
         return false;
-    } catch (Exception $e) {
-        return false;
+    } else {
+        return true;
     }
 }
 

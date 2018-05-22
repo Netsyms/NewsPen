@@ -1,4 +1,9 @@
 <?php
+
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 require_once __DIR__ . "/required.php";
 
 if ($_SESSION['loggedin'] != true) {
@@ -9,7 +14,7 @@ if ($_SESSION['loggedin'] != true) {
 require_once __DIR__ . "/pages.php";
 
 $pageid = "home";
-if (!is_empty($_GET['page'])) {
+if (isset($_GET['page']) && !is_empty($_GET['page'])) {
     $pg = strtolower($_GET['page']);
     $pg = preg_replace('/[^0-9a-z_]/', "", $pg);
     if (array_key_exists($pg, PAGES) && file_exists(__DIR__ . "/pages/" . $pg . ".php")) {
@@ -18,6 +23,14 @@ if (!is_empty($_GET['page'])) {
         $pageid = "404";
     }
 }
+
+header("Link: <static/css/bootstrap.min.css>; rel=preload; as=style", false);
+header("Link: <static/css/material-color/material-color.min.css>; rel=preload; as=style", false);
+header("Link: <static/css/app.css>; rel=preload; as=style", false);
+header("Link: <static/css/fa-svg-with-js.css>; rel=preload; as=style", false);
+header("Link: <static/js/fontawesome-all.min.js>; rel=preload; as=script", false);
+header("Link: <static/js/jquery-3.3.1.min.js>; rel=preload; as=script", false);
+header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,6 +56,7 @@ if (!is_empty($_GET['page'])) {
         if (isset(PAGES[$pageid]['styles'])) {
             foreach (PAGES[$pageid]['styles'] as $style) {
                 echo "<link href=\"$style\" rel=\"stylesheet\">\n";
+                header("Link: <$style>; rel=preload; as=style", false);
             }
         }
         ?>
@@ -51,9 +65,9 @@ if (!is_empty($_GET['page'])) {
 
         <?php
 // Alert messages
-        if (!is_empty($_GET['msg']) && array_key_exists($_GET['msg'], MESSAGES)) {
+        if (isset($_GET['msg']) && !is_empty($_GET['msg']) && array_key_exists($_GET['msg'], MESSAGES)) {
             // optional string generation argument
-            if (is_empty($_GET['arg'])) {
+            if (!isset($_GET['arg']) || is_empty($_GET['arg'])) {
                 $alertmsg = lang(MESSAGES[$_GET['msg']]['string'], false);
             } else {
                 $alertmsg = lang2(MESSAGES[$_GET['msg']]['string'], ["arg" => strip_tags($_GET['arg'])], false);
@@ -109,7 +123,7 @@ END;
                     <?php
                     $curpagefound = false;
                     foreach (PAGES as $id => $pg) {
-                        if ($pg['navbar'] === TRUE) {
+                        if (isset($pg['navbar']) && $pg['navbar'] === TRUE) {
                             if ($pageid == $id) {
                                 $curpagefound = true;
                                 ?>
@@ -169,6 +183,7 @@ END;
         if (isset(PAGES[$pageid]['scripts'])) {
             foreach (PAGES[$pageid]['scripts'] as $script) {
                 echo "<script src=\"$script\"></script>\n";
+                header("Link: <$script>; rel=preload; as=script", false);
             }
         }
         ?>

@@ -1,4 +1,9 @@
 <?php
+
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 require_once __DIR__ . "/required.php";
 
 require_once __DIR__ . "/lib/login.php";
@@ -13,7 +18,7 @@ $userpass_ok = false;
 $multiauth = false;
 if (checkLoginServer()) {
     if ($VARS['progress'] == "1") {
-        if (!RECAPTCHA_ENABLED || (RECAPTCHA_ENABLED && verifyReCaptcha($VARS['g-recaptcha-response']))) {
+        if (!CAPTCHA_ENABLED || (CAPTCHA_ENABLED && verifyCaptcheck($VARS['captcheck_session_code'], $VARS['captcheck_selected_answer'], CAPTCHA_SERVER . "/api.php"))) {
             $errmsg = "";
             if (authenticate_user($VARS['username'], $VARS['password'], $errmsg)) {
                 switch (get_account_status($VARS['username'])) {
@@ -72,6 +77,11 @@ if (checkLoginServer()) {
 } else {
     $alert = lang("login server unavailable", false);
 }
+header("Link: <static/css/bootstrap.min.css>; rel=preload; as=style", false);
+header("Link: <static/css/material-color/material-color.min.css>; rel=preload; as=style", false);
+header("Link: <static/css/index.css>; rel=preload; as=style", false);
+header("Link: <static/js/jquery-3.3.1.min.js>; rel=preload; as=script", false);
+header("Link: <static/js/bootstrap.min.js>; rel=preload; as=script", false);
 ?>
 <!DOCTYPE html>
 <html>
@@ -87,14 +97,14 @@ if (checkLoginServer()) {
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/css/material-color/material-color.min.css" rel="stylesheet">
         <link href="static/css/index.css" rel="stylesheet">
-        <?php if (RECAPTCHA_ENABLED) { ?>
-            <script src='https://www.google.com/recaptcha/api.js'></script>
+        <?php if (CAPTCHA_ENABLED) { ?>
+            <script src="<?php echo CAPTCHA_SERVER ?>/captcheck.dist.js"></script>
         <?php } ?>
     </head>
     <body>
         <div class="row justify-content-center">
             <div class="col-auto">
-                <img class="banner-image" src="static/img/logo.png" />
+                <img class="banner-image" src="static/img/logo.svg" />
             </div>
         </div>
         <div class="row justify-content-center">
@@ -115,8 +125,8 @@ if (checkLoginServer()) {
                             ?>
                             <input type="text" class="form-control" name="username" placeholder="<?php lang("username"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus /><br />
                             <input type="password" class="form-control" name="password" placeholder="<?php lang("password"); ?>" required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" /><br />
-                            <?php if (RECAPTCHA_ENABLED) { ?>
-                                <div class="g-recaptcha" data-sitekey="<?php echo RECAPTCHA_SITE_KEY; ?>"></div>
+                            <?php if (CAPTCHA_ENABLED) { ?>
+                                <div class="captcheck_container" data-stylenonce="<?php echo $SECURE_NONCE; ?>"></div>
                                 <br />
                             <?php } ?>
                             <input type="hidden" name="progress" value="1" />
