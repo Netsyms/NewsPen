@@ -85,7 +85,8 @@ if (!is_empty($VARS['id'])) {
         <input type="hidden" name="source" value="maillist" />
 
         <div class="card-footer d-flex">
-            <button type="submit" class="btn btn-success mr-auto"><i class="fas fa-save"></i> <?php lang("save"); ?></button>
+            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> <?php lang("save"); ?></button>
+            <a class="btn btn-info ml-1 mr-auto" href="app.php?page=maillist"><i class="fas fa-arrow-left"></i> <?php lang("cancel"); ?></a>
             <?php
             if ($editing && !$cloning) {
                 ?>

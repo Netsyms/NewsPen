@@ -216,6 +216,7 @@ if (!is_empty($VARS['id'])) {
 
         <div class="card-footer d-flex">
             <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> <?php lang("save"); ?></button>
+            <a class="btn btn-info ml-1" href="app.php?page=home"><i class="fas fa-arrow-left"></i> <?php lang("cancel"); ?></a>
             <?php
             if ($editing && !$cloning) {
                 ?>
