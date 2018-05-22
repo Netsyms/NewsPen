@@ -45,4 +45,12 @@ define("MESSAGES", [
         "string" => "list deleted",
         "type" => "success"
     ],
+    "mail_error" => [
+        "string" => "mail error {arg}",
+        "type" => "danger"
+    ],
+    "mail_sent" => [
+        "string" => "mail sent",
+        "type" => "success"
+    ],
 ]);

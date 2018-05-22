@@ -77,6 +77,7 @@ define("STRINGS", [
     "view file" => "View File",
     "password incorrect" => "Password incorrect.",
     "invalid listid" => "Invalid list ID.",
+    "new list" => "New List",
     "list saved" => "Mailing list saved.",
     "list deleted" => "Mailing list deleted.",
     "adding list" => "Adding mailing list",
@@ -97,5 +98,8 @@ define("STRINGS", [
     "placeholder subject" => "Type an email subject",
     "message" => "Message",
     "default message" => "Hello,  \nClick the link to view the newsletter:",
-    "cancel" => "Cancel"
+    "cancel" => "Cancel",
+    "mail error {arg}" => "Mail error: {arg}",
+    "mail sent" => "Mail sent!",
+    "last mailed on x to y" => "Publication last mailed on {x} to list {y}.",
 ]);

@@ -12,3 +12,11 @@ $("#subject").on("keyup", function () {
 $("#message").on("keyup", function () {
     $("#messagepreview").html(snarkdown($("#message").val()));
 });
+
+$("#sendform").submit(function () {
+    $("#sendbtn").attr("disabled", true);
+    $("#sendbtn").prop("disabled", true);
+    $("#cancelbtn").attr("disabled", true);
+    $("#cancelbtn").prop("disabled", true);
+    $("#sendbtn").html("<i class=\"fas fa-spinner fa-spin\"></i> Sending...");
+});

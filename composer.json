@@ -4,7 +4,9 @@
     "type": "project",
     "require": {
         "catfan/medoo": "^1.5",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "phpmailer/phpmailer": "^6.0",
+        "erusev/parsedown": "^1.7"
     },
     "license": "MPL-2.0",
     "authors": [

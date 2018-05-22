@@ -20,6 +20,15 @@ define("DB_CHARSET", "utf8");
 // Name of the app.
 define("SITE_TITLE", "NewsPen");
 
+define("SMTP_HOST", "");
+define("SMTP_AUTH", true);
+define("SMTP_SECURITY", "tls"); // tls, ssl, or none
+define("SMTP_PORT", 25);
+define("SMTP_USERNAME", "");
+define("SMTP_PASSWORD", "");
+define("SMTP_FROMADDRESS", "newspen@example.com");
+define("SMTP_FROMNAME", "NewsPen");
+define("SMTP_BATCH_SIZE", 20);
 
 // URL of the AccountHub API endpoint
 define("PORTAL_API", "http://localhost/accounthub/api.php");

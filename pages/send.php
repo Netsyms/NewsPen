@@ -13,14 +13,40 @@ if (is_empty($VARS['pubid']) || !$database->has("publications", ['pubid' => $VAR
 }
 
 $lists = $database->select("mail_lists", ['listid', 'listname']);
+
+$lastmailed = $database->get("publications", ["[>]mail_lists" => ["mailedto" => "listid"]], ['mailedon', 'mailedto', 'listname'], ['pubid' => $VARS['pubid']]);
+
+if (strpos(URL, "https://") === 0 || strpos(URL, "http://") === 0) {
+    $url = URL;
+} else {
+    // Don't trust the URL setting, it's not an absolute URL
+    $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+    $path = explode("/", $_SERVER["REQUEST_URI"]);
+    array_pop($path);
+    $url .= implode("/", $path);
+}
+$url = $url . (substr($url, -1) == '/' ? '' : '/');
 ?>
 
-<form role="form" action="action.php" method="POST">
+<form role="form" action="action.php" method="POST" id="sendform">
     <div class="card border-deep-purple">
         <h3 class="card-header text-deep-purple">
             <i class="fas fa-paper-plane"></i> <?php lang("send publication"); ?>
         </h3>
         <div class="card-body">
+            <?php
+            if (isset($lastmailed['mailedon']) && isset($lastmailed['listname'])) {
+                ?>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> <?php
+                    lang2("last mailed on x to y", [
+                        "x" => date(DATETIME_FORMAT, strtotime($lastmailed['mailedon'])),
+                        "y" => $lastmailed['listname']]);
+                    ?>
+                </div>
+                <?php
+            }
+            ?>
             <div class="row">
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
@@ -40,12 +66,12 @@ $lists = $database->select("mail_lists", ['listid', 'listname']);
                         </div>
                         <div class="card-body">
                             <span id="messagepreview">
-                                <?php echo str_replace("\n", "<br>", lang("default message", false)); ?>
+<?php echo str_replace("\n", "<br>", lang("default message", false)); ?>
                             </span>
                             <br>
-                            <a href="<?php echo URL; ?>/view.php?id=<?php echo $VARS['pubid']; ?>"><?php echo URL; ?>/view.php?id=<?php echo $VARS['pubid']; ?></a>
+                            <a href="<?php echo $url; ?>view.php?id=<?php echo $VARS['pubid']; ?>"><?php echo $url; ?>view.php?id=<?php echo $VARS['pubid']; ?></a>
                             <hr />
-                            Unsubscribe: <a href="<?php echo URL; ?>/unsubscribe.php?a=xxxxx@example.com"><?php echo URL; ?>/unsubscribe.php?a=xxxxx@example.com</a>
+                            Unsubscribe: <a href="<?php echo $url; ?>unsubscribe.php"><?php echo $url; ?>unsubscribe.php</a>
                         </div>
                     </div>
                 </div>
@@ -63,16 +89,16 @@ $lists = $database->select("mail_lists", ['listid', 'listname']);
         </div>
 
         <input type="hidden" name="pubid" value="<?php
-        echo htmlspecialchars($VARS['pubid']);
-        ?>" />
+                    echo htmlspecialchars($VARS['pubid']);
+                    ?>" />
 
         <input type="hidden" name="action" value="sendpub" />
         <input type="hidden" name="source" value="home" />
 
         <div class="card-footer d-flex">
-            <button type="submit" class="btn btn-success mr-auto"><i class="fas fa-paper-plane"></i> <?php lang("send"); ?></button>
+            <button type="submit" class="btn btn-success mr-auto" id="sendbtn"><i class="fas fa-paper-plane"></i> <?php lang("send"); ?></button>
 
-            <a href="./app.php?page=content&pubid=<?php echo htmlspecialchars($VARS['pubid']); ?>" class="btn btn-danger"><i class="fas fa-times"></i> <?php lang('cancel'); ?></a>
+            <a id="cancelbtn" href="./app.php?page=content&pubid=<?php echo htmlspecialchars($VARS['pubid']); ?>" class="btn btn-info"><i class="fas fa-arrow-left"></i> <?php lang('cancel'); ?></a>
         </div>
     </div>
 </form>

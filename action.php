@@ -9,6 +9,9 @@
  */
 require_once __DIR__ . "/required.php";
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 if ($VARS['action'] !== "signout") {
     dieifnotloggedin();
 }
@@ -31,7 +34,97 @@ function returnToSender($msg, $arg = "") {
 
 switch ($VARS['action']) {
     case "sendpub":
-        die("not implemented yet.");
+        try {
+            ini_set('max_execution_time', 60 * 5);
+            
+            // Setup mailer
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->Host = SMTP_HOST;
+            $mail->SMTPAuth = SMTP_AUTH;
+            if (SMTP_AUTH) {
+                $mail->Username = SMTP_USERNAME;
+                $mail->Password = SMTP_PASSWORD;
+            }
+            if (SMTP_SECURITY != "none") {
+                $mail->SMTPSecure = SMTP_SECURITY;
+            }
+            $mail->Port = SMTP_PORT;
+            $mail->isHTML(false);
+            $mail->setFrom(SMTP_FROMADDRESS, SMTP_FROMNAME);
+
+
+            // Get addresses
+            $addresses = [];
+            if ($database->has('mail_lists', ['listid' => $VARS['list']])) {
+                $addresses = $database->select("addresses", 'email', ['listid' => $VARS['list']]);
+            } else {
+                returnToSender("invalid_listid");
+            }
+
+
+            // Split address list into batches
+            $segmented = [];
+            $s = 0;
+            for ($i = 0; $i < count($addresses); $i++) {
+                $segmented[$s][] = $addresses[$i];
+                if (count($segmented[$s]) >= SMTP_BATCH_SIZE) {
+                    $s++;
+                }
+            }
+
+
+            // Build message content
+            if (empty($VARS['subject']) || trim($VARS['subject']) == "") {
+                returnToSender("invalid_parameters");
+            }
+            if (empty($VARS['pubid']) || !$database->has("publications", ['pubid' => $VARS['pubid']])) {
+                returnToSender("invalid_pubid");
+            }
+
+            $mail->Subject = $VARS['subject'];
+
+            $parsedown = new Parsedown();
+            $parsedown->setSafeMode(true);
+            $html = $parsedown->text($VARS['message']);
+
+            if (strpos(URL, "https://") === 0 || strpos(URL, "http://") === 0) {
+                $url = URL;
+            } else {
+                // Don't trust the URL setting, it's not an absolute URL
+                $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+                $path = explode("/", $_SERVER["REQUEST_URI"]);
+                array_pop($path);
+                $url .= implode("/", $path);
+            }
+            $url = $url . (substr($url, -1) == '/' ? '' : '/');
+            $puburl = $url . "view.php?id=" . $VARS['pubid'];
+            $unsuburl = $url . "unsubscribe.php";
+
+            $link = "<a href=\"$puburl\">$puburl</a>\n";
+            $footer = "<hr />\nUnsubscribe: <a href=\"$unsuburl\">$unsuburl</a>";
+
+            $mail->Body = $html . "<br />\n" . $link . $footer;
+            $mail->AltBody = $VARS['message'] . "\n" . $puburl . "\n\n-----\nUnsubscribe: $unsuburl";
+
+            var_dump($mail->Body);
+            var_dump($mail->AltBody);
+
+            // Send the mail
+            foreach ($segmented as $segment) {
+                foreach ($segment as $s) {
+                    $mail->addBCC($s);
+                }
+                $mail->send();
+                $mail->clearAllRecipients();
+            }
+        } catch (Exception $ex) {
+            returnToSender("mail_error", $mail->ErrorInfo);
+        }
+
+        $database->update("publications", ['mailedon' => date("Y-m-d H:i:s"), 'mailedto' => $VARS['list']], ['pubid' => $VARS['pubid']]);
+
+        returnToSender("mail_sent");
         break;
     case "editpub":
         $insert = true;
@@ -51,9 +144,9 @@ switch ($VARS['action']) {
             returnToSender('invalid_parameters');
         }
         $VARS['columns'] = 4;
-        /*if (!is_numeric($VARS['columns'])) {
-            returnToSender('invalid_parameters');
-        }*/
+        /* if (!is_numeric($VARS['columns'])) {
+          returnToSender('invalid_parameters');
+          } */
         if (!preg_match("/([A-Za-z0-9_])+/", $VARS['style'])) {
             $VARS['style'] = "";
         }
