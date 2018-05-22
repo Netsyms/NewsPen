@@ -146,6 +146,7 @@ if ($pub === false) {
             <div class="btn btn-success" id="new_tile_btn" data-toggle="modal" data-target="#new-tile-modal"><i class="fas fa-plus"></i> <?php lang("new tile"); ?></div>
         <?php } ?>
         <a class="btn btn-primary" id="preview_btn" href="lib/gencontent.php?pubid=<?php echo $pub; ?>" target="_BLANK"><i class="fas fa-search"></i> <?php lang("preview"); ?></a>
+        <a class="btn btn-info" id="send_btn" href="./app.php?page=send&pubid=<?php echo $pub; ?>"><i class="fas fa-paper-plane"></i> <?php lang("send"); ?></a>
     </div>
 
     <div class="pages-box">

@@ -4,7 +4,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-
 /**
  * Check if a given ipv4 address is in a given cidr
  * @param  string $ip    IP to check in IPV4 format eg. 127.0.0.1
@@ -129,4 +128,26 @@ function getClientIP() {
     }
 
     return "0.0.0.0"; // This will not happen unless we aren't a web server
+}
+
+/**
+ * Check if the client's IP has been doing too many brute-force-friendly
+ * requests lately.
+ * Kills the script with a "friendly" error and response code 429
+ * (Too Many Requests) if the last access time in the DB is too near.
+ *
+ * Also updates the rate_limit table with the latest data and purges old rows.
+ * @global type $database
+ */
+function engageRateLimit() {
+    global $database;
+    $delay = date("Y-m-d H:i:s", strtotime("-5 seconds"));
+    $database->delete('rate_limit', ["lastaction[<]" => $delay]);
+    if ($database->has('rate_limit', ["AND" => ["ipaddr" => getClientIP()]])) {
+        http_response_code(429);
+        die("You're going too fast.  Wait a few seconds and try again.");
+    } else {
+        // Add a record for the IP address
+        $database->insert('rate_limit', ["ipaddr" => getClientIP(), "lastaction" => date("Y-m-d H:i:s")]);
+    }
 }

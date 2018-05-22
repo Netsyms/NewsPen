@@ -91,5 +91,12 @@ define("STRINGS", [
     "publications" => "Publications",
     "grid" => "Grid",
     "list" => "List",
-    "search" => "Search"
+    "search" => "Search",
+    "send" => "Send",
+    "send publication" => "Send Publication",
+    "subject" => "Subject",
+    "placeholder subject" => "Type an email subject",
+    "message" => "Message",
+    "default message" => "Hello,  \nClick the link to view the newsletter:",
+    "cancel" => "Cancel"
 ]);

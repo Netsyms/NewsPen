@@ -30,6 +30,9 @@ function returnToSender($msg, $arg = "") {
 }
 
 switch ($VARS['action']) {
+    case "sendpub":
+        die("not implemented yet.");
+        break;
     case "editpub":
         $insert = true;
         if (is_empty($VARS['pubid'])) {

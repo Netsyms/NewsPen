@@ -69,6 +69,15 @@ define("PAGES", [
             "static/js/editlist.js"
         ],
     ],
+    "send" => [
+        "title" => "send",
+        "navbar" => false,
+        "icon" => "fas fa-paper-plane",
+        "scripts" => [
+            "static/js/snarkdown.umd.js",
+            "static/js/send.js"
+        ]
+    ],
     "404" => [
         "title" => "404 error"
     ]
