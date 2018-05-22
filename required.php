@@ -53,7 +53,7 @@ if ($_SESSION['mobile'] === TRUE) {
             . "frame-src 'none'; "
             . "font-src 'self'; "
             . "connect-src *; "
-            . "style-src 'self' 'nonce-$SECURE_NONCE' $captcha_server; "
+            . "style-src 'self' 'unsafe-inline' $captcha_server; "
             . "script-src 'self' 'nonce-$SECURE_NONCE' $captcha_server");
 }
 
